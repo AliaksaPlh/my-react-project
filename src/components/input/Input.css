@@ -1,0 +1,21 @@
+input {
+  padding: 10px 20px;
+  border: 0.5px solid #f6bd21;
+  border-radius: 8px;
+  background-color: #f6bd2129;
+  color: #af51bc;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  font-size: 16px;
+}
+input:hover {
+  border-color: #f6bd21;
+  background-color: #f6bd213b;
+}
+input:focus {
+  outline: 1px solid #d689e0;
+  border-color: #b473bd;
+  border: 0.5px solid #f6bd21;
+  background-color: #f6bd213b;
+}
