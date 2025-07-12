@@ -1,4 +1,6 @@
 input {
+  /* display: flex;
+  justify-content: center; */
   padding: 10px 20px;
   border: 0.5px solid #f6bd21;
   border-radius: 8px;
