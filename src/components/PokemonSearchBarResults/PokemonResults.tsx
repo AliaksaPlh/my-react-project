@@ -1,6 +1,7 @@
 import React from "react";
 import type { Pokemon, PokemonShort } from "../../types_interfaces/interfaces";
 import styles from "./PokemonResults.module.css";
+import Loader from "../Loader/Loader";
 
 type Props = {
   loading: boolean;
@@ -16,7 +17,7 @@ const PokemonResults: React.FC<Props> = ({
   allPokemons,
 }) => {
   if (loading) {
-    return <p className={styles.loading}>Loading...</p>;
+    return <Loader />;
   } else if (currentPokemon) {
     return (
       <div className={styles.wrapper}>
