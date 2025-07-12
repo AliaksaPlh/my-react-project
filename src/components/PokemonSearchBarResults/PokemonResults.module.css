@@ -1,3 +1,8 @@
+* {
+  color: #b473bd;
+  font-weight: bold;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,7 +11,7 @@
   padding: 20px;
   border: 1px solid #f6bd213b;
   border-radius: 12px;
-  background-color: white;
+  background-color: #f6bd213b;
 }
 
 .pokemonName {

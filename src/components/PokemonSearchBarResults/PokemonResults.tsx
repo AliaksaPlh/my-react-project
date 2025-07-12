@@ -35,7 +35,7 @@ const PokemonResults: React.FC<Props> = ({
   } else if (allPokemons.length > 0) {
     return (
       <div>
-        <h3>All Pokémon:</h3>
+        <h3>All Pokémons:</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
             <li key={p.name} className={styles.listItem}>
