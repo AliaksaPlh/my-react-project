@@ -1,8 +1,8 @@
 import React from "react";
 import { Component } from "react";
 import type { ChangeEvent } from "react";
-import Button from "./button/Button";
-import Input from "./input/Input";
+import Button from "../button/Button";
+import Input from "../input/Input";
 
 type Props = {
   value: string;
