@@ -1,38 +1,28 @@
+import React from "react";
 import { Component } from "react";
-import React, { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
+import Button from "./button/Button";
+import Input from "./input/Input";
 
-type Props = {};
-
-type State = {
-  inputValue: string;
+type Props = {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearch: () => void;
 };
 
-export class SearchBar extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      inputValue: "",
-    };
-  }
-
-  componentDidMount() {}
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleSearch = () => {};
-
-  render() {
-    return (
-      <div>
-        <input
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-          placeholder="Search..."
-        />
-        <button onClick={this.handleSearch}>Search</button>
-      </div>
-    );
-  }
+export function SearchBar(props: Props) {
+  const { value, onChange, onSearch } = props;
+  return (
+    <div style={{ marginBottom: "20px" }}>
+      <Input
+        value={value}
+        onChange={onChange}
+        placeholder="Enter FULL! Pokémon name..."
+        style={{ width: "250px" }}
+      />
+      <Button onClick={onSearch} className="regularButton">
+        Search
+      </Button>
+    </div>
+  );
 }
