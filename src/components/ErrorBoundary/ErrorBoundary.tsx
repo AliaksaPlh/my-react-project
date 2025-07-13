@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component<Props, State> {
       return (
         <div>
           <h2>Something wrong</h2>
-          <p>Please try refreshing the page or trying later</p>
+          <p>Please try refreshing the page or try later</p>
           <p>@ErrorBoundary</p>
         </div>
       );
