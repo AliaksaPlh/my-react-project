@@ -1,5 +1,5 @@
-import React from "react";
-import "./Button.css";
+import React from 'react';
+import './Button.css';
 
 interface ButtonProps {
   className?: string;
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={className}
       style={{
-        cursor: disabled ? "not-allowed" : "pointer",
+        cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.6 : 1,
         ...style,
       }}

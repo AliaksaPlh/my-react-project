@@ -1,11 +1,11 @@
-import React from "react";
-import { Component } from "react";
-import type { ChangeEvent } from "react";
-import { SearchBar } from "../SearchBar/SearchBar";
-import PokemonResults from "../PokemonSearchBarResults/PokemonResults";
-import type { Pokemon, PokemonShort } from "../../types_interfaces/interfaces";
-import ErrorBoundaryButton from "../ErrorBoundary/ErrorBoundaryButton";
-import "./PokemonContainer.css";
+import React from 'react';
+import { Component } from 'react';
+import type { ChangeEvent } from 'react';
+import { SearchBar } from '../SearchBar/SearchBar';
+import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
+import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';
+import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
+import './PokemonContainer.css';
 
 type State = {
   term: string;
@@ -25,7 +25,7 @@ export class PokemonContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      term: "",
+      term: '',
       loading: false,
       error: null,
       currentPokemon: null,
@@ -34,7 +34,7 @@ export class PokemonContainer extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const savedTerm = localStorage.getItem("searchTerm") || "";
+    const savedTerm = localStorage.getItem('searchTerm') || '';
     this.setState({ term: savedTerm }, () => {
       if (savedTerm.trim()) {
         this.fetchPokemon(savedTerm.trim());
@@ -50,9 +50,9 @@ export class PokemonContainer extends Component<Props, State> {
 
   handleSearch = () => {
     const trimmed = this.state.term.trim().toLowerCase();
-    localStorage.setItem("searchTerm", trimmed);
+    localStorage.setItem('searchTerm', trimmed);
 
-    if (trimmed === "") {
+    if (trimmed === '') {
       this.fetchAllPokemons();
     } else {
       this.fetchPokemon(trimmed);
@@ -75,7 +75,7 @@ export class PokemonContainer extends Component<Props, State> {
       this.setState({ currentPokemon: data, loading: false });
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Unknown error occurred";
+        error instanceof Error ? error.message : 'Unknown error occurred';
       this.setState({ error: message, loading: false });
     }
   };
@@ -90,7 +90,7 @@ export class PokemonContainer extends Component<Props, State> {
 
     try {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`,
+        `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
       );
       if (!response.ok)
         throw new Error(`Failed to fetch list. Status: ${response.status}`);
@@ -99,7 +99,7 @@ export class PokemonContainer extends Component<Props, State> {
       this.setState({ allPokemons: data.results, loading: false });
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Unknown error occurred";
+        error instanceof Error ? error.message : 'Unknown error occurred';
       this.setState({ error: message, loading: false });
     }
   };

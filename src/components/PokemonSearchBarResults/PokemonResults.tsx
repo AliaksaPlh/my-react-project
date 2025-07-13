@@ -1,7 +1,7 @@
-import React from "react";
-import type { Pokemon, PokemonShort } from "../../types_interfaces/interfaces";
-import styles from "./PokemonResults.module.css";
-import Loader from "../Loader/Loader";
+import React from 'react';
+import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';
+import styles from './PokemonResults.module.css';
+import Loader from '../Loader/Loader';
 
 type Props = {
   loading: boolean;
@@ -29,7 +29,7 @@ const PokemonResults: React.FC<Props> = ({
         />
         <p>Height: {currentPokemon.height}</p>
         <p>Weight: {currentPokemon.weight}</p>
-        <p>Types: {currentPokemon.types.map((t) => t.type.name).join(", ")}</p>
+        <p>Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}</p>
       </div>
     );
   } else if (allPokemons.length > 0) {

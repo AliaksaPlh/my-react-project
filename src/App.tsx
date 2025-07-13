@@ -1,6 +1,6 @@
-import React from "react";
-import { PokemonContainer } from "./components/PokemonContainer/PokemonContainer";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import React from 'react';
+import { PokemonContainer } from './components/PokemonContainer/PokemonContainer';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
   return (

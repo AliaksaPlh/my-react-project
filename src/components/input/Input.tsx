@@ -1,6 +1,6 @@
-import React from "react";
-import type { ChangeEvent } from "react";
-import "./Input.css";
+import React from 'react';
+import type { ChangeEvent } from 'react';
+import './Input.css';
 
 interface InputProps {
   value: string;
@@ -14,8 +14,8 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
   value,
   onChange,
-  placeholder = "",
-  type = "text",
+  placeholder = '',
+  type = 'text',
   style,
   className,
 }) => {
