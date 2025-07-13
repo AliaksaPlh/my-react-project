@@ -1,6 +1,6 @@
 // src/components/ErrorBoundary.tsx
 
-import React, { Component } from 'react';
+import React from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 
 interface Props {
@@ -11,7 +11,7 @@ interface State {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends React.Component<Props, State> {
   state: State = {
     hasError: false,
   };
@@ -31,6 +31,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div>
           <h2>Something wrong</h2>
           <p>Please try refreshing the page or trying later</p>
+          <p>@ErrorBoundary</p>
         </div>
       );
     }
