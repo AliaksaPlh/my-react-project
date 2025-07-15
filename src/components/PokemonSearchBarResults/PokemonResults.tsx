@@ -34,7 +34,7 @@ const PokemonResults: React.FC<Props> = ({
     );
   } else if (allPokemons.length > 0) {
     return (
-      <div>
+      <div className="pokemonResults">
         <h3>All Pokémons:</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
