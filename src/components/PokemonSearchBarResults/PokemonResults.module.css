@@ -3,6 +3,14 @@
   font-weight: bold;
 }
 
+div.pokemonResults {
+  display: flex;
+  align-items: center;
+}
+h3 {
+  display: flex;
+  justify-content: center;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
