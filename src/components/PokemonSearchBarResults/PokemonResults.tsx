@@ -35,16 +35,14 @@ const PokemonResults: React.FC<Props> = ({
   } else if (allPokemons.length > 0) {
     return (
       <div className="pokemonResults">
-        <h3>All Pokémons:</h3>
+        <h3>All Pokémons: name and type</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
             <li key={p.name} className={styles.listItem}>
               <img src={p.sprites.front_default} alt={p.name} />
               <div className="pokemonDetailsBlocks">
                 <strong>{p.name}</strong>
-                <p>Height: {p.height}</p>
-                <p>Weight: {p.weight}</p>
-                <p>Types: {p.types.map((t) => t.type.name).join(', ')}</p>
+                <p> {p.types.map((t) => t.type.name).join(', ')}</p>
               </div>
             </li>
           ))}
