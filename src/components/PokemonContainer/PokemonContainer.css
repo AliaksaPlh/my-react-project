@@ -1,0 +1,27 @@
+div.pokemon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+div.pokemon-container > div {
+  margin-top: 4px;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+}
+
+li > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+li > div > strong,
+p {
+  padding: 1rem;
+  width: 5rem;
+  height: auto;
+  display: flex;
+}
