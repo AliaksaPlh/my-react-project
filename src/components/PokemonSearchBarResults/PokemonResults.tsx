@@ -39,7 +39,8 @@ const PokemonResults: React.FC<Props> = ({
         <ul className={styles.list}>
           {allPokemons.map((p) => (
             <li key={p.name} className={styles.listItem}>
-              <div>
+              <img src={p.sprites.front_default} alt={p.name} />
+              <div className="pokemonDetailsBlocks">
                 <strong>{p.name}</strong>
                 <p>Height: {p.height}</p>
                 <p>Weight: {p.weight}</p>
