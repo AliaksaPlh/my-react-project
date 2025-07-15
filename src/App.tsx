@@ -1,4 +1,3 @@
-import React from 'react';
 import { PokemonContainer } from './components/PokemonContainer/PokemonContainer';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
