@@ -1,4 +1,3 @@
-import React from 'react';
 import { Component } from 'react';
 import type { ChangeEvent } from 'react';
 import { SearchBar } from '../SearchBar/SearchBar';
@@ -6,6 +5,7 @@ import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
 import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';
 import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
 import './PokemonContainer.css';
+import Pagination from '../Pagination/Pagination';
 
 type State = {
   term: string;
@@ -13,6 +13,7 @@ type State = {
   error: string | null;
   currentPokemon: Pokemon | null;
   allPokemons: Pokemon[];
+  currentPage: number;
 };
 type Props = {
   title?: string;
@@ -30,6 +31,7 @@ export class PokemonContainer extends Component<Props, State> {
       error: null,
       currentPokemon: null,
       allPokemons: [],
+      currentPage: 1,
     };
   }
 
@@ -58,6 +60,9 @@ export class PokemonContainer extends Component<Props, State> {
       this.fetchPokemon(trimmed);
     }
   };
+  handlePageChange = (newPage: number) => {
+    this.fetchAllPokemons(newPage);
+  };
 
   fetchPokemon = async (name: string) => {
     this.setState({
@@ -80,14 +85,15 @@ export class PokemonContainer extends Component<Props, State> {
     }
   };
 
-  fetchAllPokemons = async () => {
+  fetchAllPokemons = async (page: number = 1) => {
     const limit = 20;
-    const offset = 0;
+    const offset = (page - 1) * limit;
     this.setState({
       loading: true,
       error: null,
       currentPokemon: null,
       allPokemons: [],
+      currentPage: page,
     });
 
     try {
@@ -130,6 +136,12 @@ export class PokemonContainer extends Component<Props, State> {
           currentPokemon={currentPokemon}
           allPokemons={allPokemons}
         />
+        {!currentPokemon && allPokemons.length > 0 && (
+          <Pagination
+            currentPage={this.state.currentPage}
+            onPageChange={this.handlePageChange}
+          />
+        )}
         <ErrorBoundaryButton />
       </div>
     );
