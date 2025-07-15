@@ -12,6 +12,7 @@ input {
 input:hover {
   border-color: #f6bd21;
   background-color: #f6bd213b;
+  font-weight: bold;
 }
 input:focus {
   outline: 1px solid #d689e0;
