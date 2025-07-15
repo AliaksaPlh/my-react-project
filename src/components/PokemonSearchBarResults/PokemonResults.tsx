@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';
+import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';
 import Loader from '../Loader/Loader';
 
@@ -7,7 +7,7 @@ type Props = {
   loading: boolean;
   error: string | null;
   currentPokemon: Pokemon | null;
-  allPokemons: PokemonShort[];
+  allPokemons: Pokemon[];
 };
 
 const PokemonResults: React.FC<Props> = ({
@@ -39,10 +39,12 @@ const PokemonResults: React.FC<Props> = ({
         <ul className={styles.list}>
           {allPokemons.map((p) => (
             <li key={p.name} className={styles.listItem}>
-              <span>{p.name}</span>
-              <a href={p.url} target="_blank" rel="noreferrer">
-                details
-              </a>
+              <div>
+                <strong>{p.name}</strong>
+                <p>Height: {p.height}</p>
+                <p>Weight: {p.weight}</p>
+                <p>Types: {p.types.map((t) => t.type.name).join(', ')}</p>
+              </div>
             </li>
           ))}
         </ul>
