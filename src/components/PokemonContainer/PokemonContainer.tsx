@@ -12,7 +12,7 @@ type State = {
   loading: boolean;
   error: string | null;
   currentPokemon: Pokemon | null;
-  allPokemons: PokemonShort[];
+  allPokemons: Pokemon[];
 };
 type Props = {
   title?: string;
@@ -81,6 +81,8 @@ export class PokemonContainer extends Component<Props, State> {
   };
 
   fetchAllPokemons = async () => {
+    const limit = 20;
+    const offset = 0;
     this.setState({
       loading: true,
       error: null,
@@ -90,13 +92,21 @@ export class PokemonContainer extends Component<Props, State> {
 
     try {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
       );
       if (!response.ok)
         throw new Error(`Failed to fetch list. Status: ${response.status}`);
 
       const data: { results: PokemonShort[] } = await response.json();
-      this.setState({ allPokemons: data.results, loading: false });
+      // Inf for every Pokémon
+      const detailedPokemons: Pokemon[] = await Promise.all(
+        data.results.map(async (pokemon) => {
+          const res = await fetch(pokemon.url);
+          if (!res.ok) throw new Error('Failed to fetch Pokémon details');
+          return res.json();
+        })
+      );
+      this.setState({ allPokemons: detailedPokemons, loading: false });
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : 'Unknown error occurred';
