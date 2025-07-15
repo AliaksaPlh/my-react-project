@@ -43,7 +43,7 @@ h3 {
 
 .listItem {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   font-size: 14px;
 }
 
@@ -55,4 +55,7 @@ h3 {
 .loading {
   color: #b473bd;
   font-weight: bold;
+}
+div.pokemonDetailsBlocks.p {
+  min-width: 150px;
 }
