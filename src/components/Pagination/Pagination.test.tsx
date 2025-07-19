@@ -14,6 +14,14 @@ describe('Pagination', () => {
     const prevButton = screen.getByRole('button', { name: /previous/i });
     expect(prevButton).toBeDisabled();
   });
+  it('does not call onPageChange when Previous button is disabled and clicked', async () => {
+    const onPageChange = vi.fn();
+    render(<Pagination currentPage={1} onPageChange={onPageChange} />);
+    const prevButton = screen.getByRole('button', { name: /previous/i });
+    expect(prevButton).toBeDisabled();
+    await userEvent.click(prevButton);
+    expect(onPageChange).not.toHaveBeenCalled();
+  });
   it('calls onPageChange with +1 when "Next" is clicked', async () => {
     const onPageChange = vi.fn();
     render(<Pagination currentPage={5} onPageChange={onPageChange} />);
