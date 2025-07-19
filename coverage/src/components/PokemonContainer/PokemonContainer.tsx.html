@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/151</span>
+                <span class='fraction'>0/133</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/151</span>
+                <span class='fraction'>0/133</span>
             </div>
         
             
@@ -196,43 +196,7 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -369,10 +333,11 @@
 <span class="cstat-no" title="statement not covered" >import type { ChangeEvent } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { SearchBar } from '../SearchBar/SearchBar';</span>
 <span class="cstat-no" title="statement not covered" >import PokemonResults from '../PokemonSearchBarResults/PokemonResults';</span>
-<span class="cstat-no" title="statement not covered" >import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';</span>
+<span class="cstat-no" title="statement not covered" >import type { Pokemon } from '../../types_interfaces/interfaces';</span>
 <span class="cstat-no" title="statement not covered" >import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';</span>
 <span class="cstat-no" title="statement not covered" >import './PokemonContainer.css';</span>
 <span class="cstat-no" title="statement not covered" >import Pagination from '../Pagination/Pagination';</span>
+<span class="cstat-no" title="statement not covered" >import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >type State = {</span>
 <span class="cstat-no" title="statement not covered" >  term: string;</span>
@@ -440,10 +405,7 @@
 <span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);</span>
-<span class="cstat-no" title="statement not covered" >      if (!response.ok) throw new Error(`Pokémon "${name}" not found.`);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      const data: Pokemon = await response.json();</span>
+<span class="cstat-no" title="statement not covered" >      const data: Pokemon = await fetchPokemonByName(name);</span>
 <span class="cstat-no" title="statement not covered" >      this.setState({ currentPokemon: data, loading: false });</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error: unknown) {</span>
 <span class="cstat-no" title="statement not covered" >      const message =</span>
@@ -453,8 +415,6 @@
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  fetchAllPokemons = async (page: number = 1) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const limit = 20;</span>
-<span class="cstat-no" title="statement not covered" >    const offset = (page - 1) * limit;</span>
 <span class="cstat-no" title="statement not covered" >    this.setState({</span>
 <span class="cstat-no" title="statement not covered" >      loading: true,</span>
 <span class="cstat-no" title="statement not covered" >      error: null,</span>
@@ -464,21 +424,7 @@
 <span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      const response = await fetch(</span>
-<span class="cstat-no" title="statement not covered" >        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&amp;offset=${offset}`</span>
-<span class="cstat-no" title="statement not covered" >      );</span>
-<span class="cstat-no" title="statement not covered" >      if (!response.ok)</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error(`Failed to fetch list. Status: ${response.status}`);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      const data: { results: PokemonShort[] } = await response.json();</span>
-<span class="cstat-no" title="statement not covered" >      // Inf for every Pokémon</span>
-<span class="cstat-no" title="statement not covered" >      const detailedPokemons: Pokemon[] = await Promise.all(</span>
-<span class="cstat-no" title="statement not covered" >        data.results.map(async (pokemon) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          const res = await fetch(pokemon.url);</span>
-<span class="cstat-no" title="statement not covered" >          if (!res.ok) throw new Error('Failed to fetch Pokémon details');</span>
-<span class="cstat-no" title="statement not covered" >          return res.json();</span>
-<span class="cstat-no" title="statement not covered" >        })</span>
-<span class="cstat-no" title="statement not covered" >      );</span>
+<span class="cstat-no" title="statement not covered" >      const detailedPokemons: Pokemon[] = await fetchPokemonsPage(page);</span>
 <span class="cstat-no" title="statement not covered" >      this.setState({ allPokemons: detailedPokemons, loading: false });</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error: unknown) {</span>
 <span class="cstat-no" title="statement not covered" >      const message =</span>
@@ -523,7 +469,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-19T18:11:35.663Z
+                at 2025-07-19T20:49:48.408Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
