@@ -1,49 +1,7 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { fetchPokemonByName, fetchPokemonsPage } from '../api/pokemon';
-import type { Pokemon, PokemonShort } from '../types_interfaces/interfaces';
-
-const mockPokemon: Pokemon = {
-  name: 'pikachu',
-  sprites: {
-    front_default: 'https://example.com/pikachu.png',
-  },
-  height: 4,
-  weight: 60,
-  types: [
-    {
-      type: {
-        name: 'electric',
-      },
-    },
-  ],
-};
-
-const mockShort: PokemonShort = {
-  name: 'bulbasaur',
-  url: 'https://pokeapi.co/api/v2/pokemon/1/',
-};
-
-const mockDetailed: Pokemon = {
-  name: 'bulbasaur',
-  sprites: {
-    front_default: 'https://example.com/bulbasaur.png',
-  },
-  height: 7,
-  weight: 69,
-  types: [
-    {
-      type: {
-        name: 'grass',
-      },
-    },
-    {
-      type: {
-        name: 'poison',
-      },
-    },
-  ],
-};
+import { mockPokemon, mockShort, mockDetailed } from '../test-utils/mockData';
 
 beforeEach(() => {
   vi.stubGlobal('fetch', vi.fn());
