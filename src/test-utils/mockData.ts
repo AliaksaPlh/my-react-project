@@ -15,6 +15,21 @@ export const mockPokemon: Pokemon = {
     },
   ],
 };
+export const mockPokemon2: Pokemon = {
+  name: 'raichu',
+  sprites: {
+    front_default: 'https://example.com/raichu.png',
+  },
+  height: 8,
+  weight: 300,
+  types: [
+    {
+      type: {
+        name: 'electric',
+      },
+    },
+  ],
+};
 export const mockShort: PokemonShort = {
   name: 'bulbasaur',
   url: 'https://pokeapi.co/api/v2/pokemon/1/',
