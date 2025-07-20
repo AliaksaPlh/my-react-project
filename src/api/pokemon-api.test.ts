@@ -69,7 +69,7 @@ describe('fetchPokemonByName', () => {
       status: 404,
     });
     await expect(fetchPokemonByName('unknown')).rejects.toThrow(
-      'Pokémon "unknown" not found.'
+      'Pokémon "unknown" not found. Status: 404'
     );
   });
   it('throws error if fetch fails with 500', async () => {
@@ -78,7 +78,7 @@ describe('fetchPokemonByName', () => {
       status: 500,
     });
     await expect(fetchPokemonByName('unknown')).rejects.toThrow(
-      'Pokémon "unknown" not found.'
+      'Pokémon "unknown" not found. Status: 500'
     );
   });
 });
@@ -96,7 +96,16 @@ describe('fetchPokemonsPage', () => {
     const result = await fetchPokemonsPage(1);
     expect(result).toEqual([mockDetailed]);
   });
-  it('throws error if detail fetch fails (404)', async () => {
+  it('throws error if fetch list fails with 500', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+    });
+    await expect(fetchPokemonsPage(1)).rejects.toThrow(
+      'Failed to fetch list. Status: 500'
+    );
+  });
+  it('throws error if detail fetch fails with 404', async () => {
     (fetch as ReturnType<typeof vi.fn>)
       .mockResolvedValueOnce({
         ok: true,
@@ -107,16 +116,7 @@ describe('fetchPokemonsPage', () => {
         status: 404,
       });
     await expect(fetchPokemonsPage(1)).rejects.toThrow(
-      'Failed to fetch Pokémon details'
-    );
-  });
-  it('throws error if fetch list fails with 500', async () => {
-    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      ok: false,
-      status: 500,
-    });
-    await expect(fetchPokemonsPage(1)).rejects.toThrow(
-      'Failed to fetch list. Status: 500'
+      'Failed to fetch Pokémon details. Status: 404'
     );
   });
 });

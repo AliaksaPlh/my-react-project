@@ -4,10 +4,10 @@ const apiLink = 'https://pokeapi.co/api/v2';
 
 export async function fetchPokemonByName(name: string): Promise<Pokemon> {
   const response = await fetch(`${apiLink}/pokemon/${name}`);
-  if (!response.ok) throw new Error(`Pokémon "${name}" not found.`);
+  if (!response.ok)
+    throw new Error(`Pokémon "${name}" not found. Status: ${response.status}`);
   return response.json();
 }
-
 export async function fetchPokemonsPage(
   page: number,
   limit = 20
@@ -18,14 +18,15 @@ export async function fetchPokemonsPage(
   );
   if (!response.ok)
     throw new Error(`Failed to fetch list. Status: ${response.status}`);
-
   const data: { results: PokemonShort[] } = await response.json();
-
   return Promise.all(
     data.results.map(async (pokemon) => {
-      const res = await fetch(pokemon.url);
-      if (!res.ok) throw new Error('Failed to fetch Pokémon details');
-      return res.json();
+      const response = await fetch(pokemon.url);
+      if (!response.ok)
+        throw new Error(
+          `Failed to fetch Pokémon details. Status: ${response.status}`
+        );
+      return response.json();
     })
   );
 }
