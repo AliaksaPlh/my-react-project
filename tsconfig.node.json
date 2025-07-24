@@ -5,7 +5,7 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "types": ["vitest", "node"],
+    "types": ["vitest"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
