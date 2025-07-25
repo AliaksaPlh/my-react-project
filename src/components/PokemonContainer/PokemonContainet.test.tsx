@@ -26,6 +26,7 @@ describe('PokemonContainer', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
+
   it('Manages search term state correctly', async () => {
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockPokemon);
     render(<PokemonContainer />);
@@ -35,6 +36,7 @@ describe('PokemonContainer', () => {
     await screen.findByText(/height/i);
     expect(api.fetchPokemonByName).toHaveBeenCalledWith('pikachu');
   });
+
   it('saves search term to localStorage when search button is clicked', async () => {
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockPokemon);
     render(<PokemonContainer />);
@@ -44,6 +46,7 @@ describe('PokemonContainer', () => {
     await screen.findByText(/height/i);
     expect(localStorage.getItem('searchTerm')).toBe('pikachu');
   });
+
   it('display saved searchTerm from localStorage', () => {
     window.localStorage.setItem('searchTerm', 'pikachu');
     render(<PokemonContainer />);
@@ -58,6 +61,7 @@ describe('PokemonContainer', () => {
       expect(screen.getByRole('textbox')).toHaveValue('');
     });
   });
+
   it('Makes initial API call on component mount', async () => {
     (api.fetchPokemonsPage as Mock).mockResolvedValueOnce([mockDetailed]);
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockDetailed);
@@ -65,12 +69,14 @@ describe('PokemonContainer', () => {
     expect(api.fetchPokemonsPage).toHaveBeenCalledWith(1);
     await screen.findByText(/bulbasaur/i);
   });
+
   it('Handles search term from localStorage on initial load', async () => {
     window.localStorage.setItem('searchTerm', 'bulbasaur');
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockDetailed);
     render(<PokemonContainer />);
     await screen.findByText(/bulbasaur/i);
   });
+
   it('Manages loading during API calls', async () => {
     localStorage.setItem('searchTerm', 'bulbasaur');
     render(<PokemonContainer />);

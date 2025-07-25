@@ -10,6 +10,7 @@ describe('Input', () => {
     const input = screen.getByDisplayValue('hello');
     expect(input).toBeInTheDocument();
   });
+
   it('renders with placeholder text', () => {
     render(<Input value="" onChange={() => {}} placeholder="Enter name" />);
     expect(screen.getByPlaceholderText('Enter name')).toBeInTheDocument();

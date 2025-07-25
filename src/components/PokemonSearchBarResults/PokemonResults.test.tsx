@@ -16,6 +16,7 @@ describe('PokemonResults', () => {
     );
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
+
   it('displays pokemon card from currentPokemon if provided', () => {
     render(
       <PokemonResults
@@ -78,6 +79,7 @@ describe('PokemonResults', () => {
     );
     expect(screen.getByText(/404/)).toBeInTheDocument();
   });
+
   it('error message when API fails with 500', () => {
     render(
       <PokemonResults

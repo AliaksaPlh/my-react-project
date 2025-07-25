@@ -12,6 +12,7 @@ describe('SearchBar', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
+
   it('calls onSearch when Search button is clicked', async () => {
     const handleSearch = vi.fn();
     render(<SearchBar value="" onChange={() => {}} onSearch={handleSearch} />);
