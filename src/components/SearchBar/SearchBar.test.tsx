@@ -15,7 +15,13 @@ describe('SearchBar', () => {
 
   it('calls onSearch when Search button is clicked', async () => {
     const handleSearch = vi.fn();
-    render(<SearchBar value="" onChange={() => {}} onSearch={handleSearch} />);
+    const handleChange = vi.fn();
+    render(
+      <SearchBar value="" onChange={handleChange} onSearch={handleSearch} />
+    );
+    const input = screen.getByRole('textbox');
+    await userEvent.type(input, 'name');
+    expect(handleChange).toHaveBeenCalledTimes(4);
     const button = screen.getByRole('button', { name: /search/i });
     await userEvent.click(button);
     expect(handleSearch).toHaveBeenCalledTimes(1);
