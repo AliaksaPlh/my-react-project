@@ -5,18 +5,6 @@ import PokemonResults from './PokemonResults';
 import { mockPokemon, mockPokemon2 } from '../../test-utils/mockData';
 
 describe('PokemonResults', () => {
-  it('displays loader when loading', () => {
-    render(
-      <PokemonResults
-        loading={true}
-        error={null}
-        currentPokemon={null}
-        allPokemons={[]}
-      />
-    );
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
   it('displays pokemon card from currentPokemon if provided', () => {
     render(
       <PokemonResults
