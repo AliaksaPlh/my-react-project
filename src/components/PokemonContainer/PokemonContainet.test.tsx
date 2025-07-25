@@ -39,19 +39,25 @@ describe('PokemonContainer', () => {
 
   it('saves search term to localStorage when search button is clicked', async () => {
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockPokemon);
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     render(<PokemonContainer />);
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'pikachu' } });
     fireEvent.click(screen.getByRole('button', { name: /search/i }));
     await screen.findByText(/height/i);
-    expect(localStorage.getItem('searchTerm')).toBe('pikachu');
+    expect(setItemSpy).toHaveBeenCalledWith('searchTerm', 'pikachu');
+    setItemSpy.mockRestore();
   });
 
   it('display saved searchTerm from localStorage', () => {
-    window.localStorage.setItem('searchTerm', 'pikachu');
+    const getItemSpy = vi
+      .spyOn(Storage.prototype, 'getItem')
+      .mockReturnValueOnce('pikachu');
     render(<PokemonContainer />);
-    const storedValue = window.localStorage.getItem('searchTerm');
-    expect(screen.getByRole('textbox')).toHaveValue(storedValue);
+    expect(screen.getByRole('textbox')).toHaveValue(
+      getItemSpy.mock.results[0].value
+    );
+    getItemSpy.mockRestore();
   });
 
   it('check no saved term in localStorage', async () => {
@@ -71,10 +77,12 @@ describe('PokemonContainer', () => {
   });
 
   it('Handles search term from localStorage on initial load', async () => {
-    window.localStorage.setItem('searchTerm', 'bulbasaur');
     (api.fetchPokemonByName as Mock).mockResolvedValueOnce(mockDetailed);
+    const getItemSpy = vi
+      .spyOn(Storage.prototype, 'getItem')
+      .mockReturnValueOnce(mockDetailed.name);
     render(<PokemonContainer />);
-    await screen.findByText(/bulbasaur/i);
+    await screen.findByText(getItemSpy.mock.results[0].value);
   });
 
   it('Manages loading during API calls', async () => {
