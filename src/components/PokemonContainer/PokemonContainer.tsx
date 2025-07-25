@@ -2,10 +2,11 @@ import { Component } from 'react';
 import type { ChangeEvent } from 'react';
 import { SearchBar } from '../SearchBar/SearchBar';
 import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
-import type { Pokemon, PokemonShort } from '../../types_interfaces/interfaces';
+import type { Pokemon } from '../../types_interfaces/interfaces';
 import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
 import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
+import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 
 type State = {
   term: string;
@@ -73,10 +74,7 @@ export class PokemonContainer extends Component<Props, State> {
     });
 
     try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-      if (!response.ok) throw new Error(`Pokémon "${name}" not found.`);
-
-      const data: Pokemon = await response.json();
+      const data: Pokemon = await fetchPokemonByName(name);
       this.setState({ currentPokemon: data, loading: false });
     } catch (error: unknown) {
       const message =
@@ -86,8 +84,6 @@ export class PokemonContainer extends Component<Props, State> {
   };
 
   fetchAllPokemons = async (page: number = 1) => {
-    const limit = 20;
-    const offset = (page - 1) * limit;
     this.setState({
       loading: true,
       error: null,
@@ -97,21 +93,7 @@ export class PokemonContainer extends Component<Props, State> {
     });
 
     try {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-      );
-      if (!response.ok)
-        throw new Error(`Failed to fetch list. Status: ${response.status}`);
-
-      const data: { results: PokemonShort[] } = await response.json();
-      // Inf for every Pokémon
-      const detailedPokemons: Pokemon[] = await Promise.all(
-        data.results.map(async (pokemon) => {
-          const res = await fetch(pokemon.url);
-          if (!res.ok) throw new Error('Failed to fetch Pokémon details');
-          return res.json();
-        })
-      );
+      const detailedPokemons: Pokemon[] = await fetchPokemonsPage(page);
       this.setState({ allPokemons: detailedPokemons, loading: false });
     } catch (error: unknown) {
       const message =
