@@ -20,7 +20,7 @@ const EboutMePage: React.FC = () => {
     >
       <h1>About Me</h1>
       <h2 style={{ width: '25rem', textAlign: 'center' }}>
-        Hello, my name is Alexandra, I'm junior frontend developer.
+        Hello, my name is Alexandra, I am junior frontend developer.
         <br />
         Welcome to my GitHub by <a href="https://github.com/AliaksaPlh">
           link
