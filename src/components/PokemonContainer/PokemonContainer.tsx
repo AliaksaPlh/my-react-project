@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router';
 import { SearchBar } from '../SearchBar/SearchBar';
 import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
 import type { Pokemon } from '../../types_interfaces/interfaces';
@@ -14,15 +15,17 @@ const PokemonContainer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
   const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams(); // for URL
+
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   useEffect(() => {
     if (term.trim()) {
       fetchPokemon(term.trim());
     } else {
-      fetchAllPokemons();
+      fetchAllPokemons(currentPage);
     }
-  }, []);
+  }, [currentPage, searchParams, term]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
@@ -30,15 +33,19 @@ const PokemonContainer: React.FC = () => {
 
   const handleSearch = () => {
     const trimmed = term.trim().toLowerCase();
+    setSearchParams({}); // refresh
     if (trimmed === '') {
       fetchAllPokemons();
     } else {
       fetchPokemon(trimmed);
     }
   };
+
   const handlePageChange = (newPage: number) => {
     fetchAllPokemons(newPage);
+    setSearchParams({ page: newPage.toString() });
   };
+
   const fetchPokemon = async (name: string) => {
     setLoading(true);
     setError(null);
@@ -62,7 +69,6 @@ const PokemonContainer: React.FC = () => {
     setError(null);
     setCurrentPokemon(null);
     setAllPokemons([]);
-    setCurrentPage(page);
 
     try {
       const detailedPokemons: Pokemon[] = await fetchPokemonsPage(page);
