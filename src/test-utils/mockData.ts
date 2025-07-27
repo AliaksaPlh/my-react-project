@@ -54,3 +54,15 @@ export const mockDetailed: Pokemon = {
     },
   ],
 };
+export const mockPokemonsPage = [
+  {
+    name: 'bulbasaur',
+    sprites: { front_default: 'url-to-image' },
+    types: [{ type: { name: 'grass' } }],
+  },
+  {
+    name: 'charmander',
+    sprites: { front_default: 'url-to-image' },
+    types: [{ type: { name: 'fire' } }],
+  },
+];
