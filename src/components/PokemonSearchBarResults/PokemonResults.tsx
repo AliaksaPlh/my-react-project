@@ -34,7 +34,7 @@ const PokemonResults: React.FC<Props> = ({
         <p>Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}</p>
       </div>
     );
-  } else if (allPokemons.length > 0) {
+  } else if (Array.isArray(allPokemons) && allPokemons.length > 0) {
     return (
       <div className="pokemonResults">
         <h3>All Pokémons: name and type</h3>
