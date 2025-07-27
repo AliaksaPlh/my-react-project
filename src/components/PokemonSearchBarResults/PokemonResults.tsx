@@ -8,6 +8,7 @@ type Props = {
   error: string | null;
   currentPokemon: Pokemon | null;
   allPokemons: Pokemon[];
+  onItemClick?: (name: string) => void;
 };
 
 const PokemonResults: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const PokemonResults: React.FC<Props> = ({
   error,
   currentPokemon,
   allPokemons,
+  onItemClick,
 }) => {
   if (loading) {
     return <Loader />;
@@ -38,7 +40,12 @@ const PokemonResults: React.FC<Props> = ({
         <h3>All Pokémons: name and type</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
-            <li key={p.name} className={styles.listItem}>
+            <li
+              key={p.name}
+              className={styles.listItem}
+              onClick={() => onItemClick?.(p.name)}
+              style={{ cursor: 'pointer' }}
+            >
               <img src={p.sprites.front_default} alt={p.name} />
               <div className="pokemonDetailsBlocks">
                 <strong>{p.name}</strong>

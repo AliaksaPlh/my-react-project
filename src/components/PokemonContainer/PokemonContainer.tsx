@@ -8,6 +8,7 @@ import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import { useSearchTerm } from '../../Hooks/useSerchTerm';
+import PokemonDetails from '../PokemonDetails/PokemonDetails';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useSearchTerm();
@@ -19,13 +20,15 @@ const PokemonContainer: React.FC = () => {
 
   const currentPage = Number(searchParams.get('page')) || 1;
 
+  const selectedName = searchParams.get('selected');
+
   useEffect(() => {
     if (term.trim()) {
       fetchPokemon(term.trim());
     } else {
       fetchAllPokemons(currentPage);
     }
-  }, [currentPage, searchParams, term]);
+  }, [currentPage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
@@ -45,6 +48,16 @@ const PokemonContainer: React.FC = () => {
     fetchAllPokemons(newPage);
     setSearchParams({ page: newPage.toString() });
   };
+  const handleItemClick = (name: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('selected', name);
+    setSearchParams(newParams);
+  };
+  const handleCloseDetails = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('selected');
+    setSearchParams(newParams);
+  };
 
   const fetchPokemon = async (name: string) => {
     setLoading(true);
@@ -60,6 +73,7 @@ const PokemonContainer: React.FC = () => {
       const message =
         error instanceof Error ? error.message : 'Unknown error occurred';
       setError(message);
+    } finally {
       setLoading(false);
     }
   };
@@ -78,27 +92,40 @@ const PokemonContainer: React.FC = () => {
       const message =
         error instanceof Error ? error.message : 'Unknown error occurred';
       setError(message);
+    } finally {
       setLoading(false);
     }
   };
   return (
-    <div className="pokemon-container">
-      <SearchBar value={term} onChange={handleChange} onSearch={handleSearch} />
-      <PokemonResults
-        loading={loading}
-        error={error}
-        currentPokemon={currentPokemon}
-        allPokemons={allPokemons}
-      />
-      {!currentPokemon &&
-        Array.isArray(allPokemons) &&
-        allPokemons.length > 0 && (
-          <Pagination
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        )}
-      <ErrorBoundaryButton />
+    <div className="pokemon-container split">
+      <div className="left-section">
+        <SearchBar
+          value={term}
+          onChange={handleChange}
+          onSearch={handleSearch}
+        />
+        <PokemonResults
+          loading={loading}
+          error={error}
+          currentPokemon={currentPokemon}
+          allPokemons={allPokemons}
+          onItemClick={handleItemClick}
+        />
+        {!currentPokemon &&
+          Array.isArray(allPokemons) &&
+          allPokemons.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
+        <ErrorBoundaryButton />
+      </div>
+      {selectedName && (
+        <div className="right-section">
+          <PokemonDetails name={selectedName} onClose={handleCloseDetails} />
+        </div>
+      )}
     </div>
   );
 };
