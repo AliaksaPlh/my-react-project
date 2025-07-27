@@ -6,9 +6,10 @@ import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
 import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
+import { useSearchTerm } from '../../Hooks/useSerchTerm';
 
 const PokemonContainer: React.FC = () => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useSearchTerm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
@@ -16,20 +17,8 @@ const PokemonContainer: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    setTerm(savedTerm);
-    if (savedTerm.trim()) {
-      fetchPokemon(savedTerm.trim());
-    } else {
-      fetchAllPokemons();
-    }
-  }, []);
-
-  useEffect(() => {
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    setTerm(savedTerm);
-    if (savedTerm.trim()) {
-      fetchPokemon(savedTerm.trim());
+    if (term.trim()) {
+      fetchPokemon(term.trim());
     } else {
       fetchAllPokemons();
     }
@@ -41,8 +30,6 @@ const PokemonContainer: React.FC = () => {
 
   const handleSearch = () => {
     const trimmed = term.trim().toLowerCase();
-    localStorage.setItem('searchTerm', trimmed);
-
     if (trimmed === '') {
       fetchAllPokemons();
     } else {
