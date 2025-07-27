@@ -16,6 +16,7 @@ const NotFound: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <h1>404 - Page Not Found</h1>
