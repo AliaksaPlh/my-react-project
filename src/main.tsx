@@ -2,9 +2,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css';
-// import App from './App.tsx';
 import PokemonContainer from './components/PokemonContainer/PokemonContainer';
 import NotFound from './components/nonExistingRoutes.tsx';
+import EboutMePage from './components/AboutMe.tsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +15,7 @@ const router = createBrowserRouter([
     path: '*',
     element: <NotFound />,
   },
+  { path: '/about', element: <EboutMePage /> },
 ]);
 
 const rootElement = document.getElementById('root');
