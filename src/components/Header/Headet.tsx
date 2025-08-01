@@ -13,6 +13,7 @@ const Header: React.FC = () => {
             listStyle: 'none',
             gap: '1rem',
             flexDirection: 'row',
+            marginBottom: '0px',
           }}
         >
           <li>
