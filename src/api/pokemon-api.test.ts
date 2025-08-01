@@ -17,8 +17,10 @@ describe('fetchPokemonByName', () => {
       ok: true,
       json: async () => mockPokemon,
     });
-
     const result = await fetchPokemonByName('pikachu');
+    expect(fetch).toHaveBeenCalledWith(
+      'https://pokeapi.co/api/v2/pokemon/pikachu'
+    );
     expect(result).toEqual(mockPokemon);
   });
 
@@ -56,6 +58,9 @@ describe('fetchPokemonsPage', () => {
       });
     const result = await fetchPokemonsPage(1);
     expect(result).toEqual([mockDetailed]);
+    expect(fetch).toHaveBeenCalledWith(
+      'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0'
+    );
   });
 
   it('throws error if fetch list fails with 500', async () => {
