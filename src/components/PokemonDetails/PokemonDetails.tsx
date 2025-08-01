@@ -34,9 +34,11 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
 
   if (loading) {
     return <Loader />;
-  } else if (error) {
+  }
+  if (error) {
     return <div className="details-error">{error}</div>;
-  } else if (!pokemon) {
+  }
+  if (!pokemon) {
     return null;
   }
   return (

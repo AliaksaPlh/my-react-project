@@ -20,7 +20,8 @@ const PokemonResults: React.FC<Props> = ({
 }) => {
   if (loading) {
     return <Loader />;
-  } else if (currentPokemon) {
+  }
+  if (currentPokemon) {
     return (
       <div className={styles.wrapper}>
         <h2 className={styles.pokemonName}>{currentPokemon.name}</h2>
@@ -34,7 +35,8 @@ const PokemonResults: React.FC<Props> = ({
         <p>Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}</p>
       </div>
     );
-  } else if (Array.isArray(allPokemons) && allPokemons.length > 0) {
+  }
+  if (Array.isArray(allPokemons) && allPokemons.length > 0) {
     return (
       <div className="pokemonResults">
         <h3>All Pokémons: name and type</h3>
@@ -56,7 +58,8 @@ const PokemonResults: React.FC<Props> = ({
         </ul>
       </div>
     );
-  } else if (error) {
+  }
+  if (error) {
     return <p className={styles.error}>{error}</p>;
   }
 
