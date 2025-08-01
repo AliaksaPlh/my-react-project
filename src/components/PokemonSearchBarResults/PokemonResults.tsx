@@ -8,7 +8,7 @@ type Props = {
   error: string | null;
   currentPokemon: Pokemon | null;
   allPokemons: Pokemon[];
-  onItemClick?: (name: string) => void;
+  onItemClick: (name: string) => void;
 };
 
 const PokemonResults: React.FC<Props> = ({
