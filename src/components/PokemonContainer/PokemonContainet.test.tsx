@@ -1,12 +1,13 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import type { Mock } from 'vitest';
 import PokemonContainer from './PokemonContainer';
 import {
   mockPokemon,
   mockPokemon2,
   mockDetailed,
+  mockShort,
 } from '../../test-utils/mockData';
 import * as api from '../../api/pokemon';
 import { MemoryRouter } from 'react-router';
@@ -19,10 +20,19 @@ vi.mock('../../api/pokemon', () => ({
 beforeEach(() => {
   vi.clearAllMocks();
   localStorage.clear();
+  vi.stubGlobal('fetch', vi.fn());
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 describe('PokemonContainer', () => {
   it('render SearchBar (input and search button)', () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ results: [mockShort] }),
+    });
     render(
       <MemoryRouter>
         <PokemonContainer />{' '}
