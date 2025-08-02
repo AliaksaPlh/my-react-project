@@ -12,18 +12,14 @@ describe('useLocalStorage', () => {
   });
 
   it('check if localStorage is empty', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage<string>(key, 'initialValue')
-    );
-    expect(result.current[0]).toBe('initialValue');
+    const { result } = renderHook(() => useLocalStorage(key));
+    expect(result.current.getLocalStorage()).toBe('');
   });
 
   it(' update localStorage when value changes', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage<string>(key, 'initialValue')
-    );
+    const { result } = renderHook(() => useLocalStorage(key));
     act(() => {
-      result.current[1]('newValue');
+      result.current.setLocalStorage('newValue');
     });
     expect(localStorage.getItem(key)).toBe(JSON.stringify('newValue'));
   });
