@@ -47,6 +47,7 @@ describe('PokemonResults', () => {
         error={null}
         currentPokemon={null}
         allPokemons={[]}
+        onItemClick={() => {}}
       />
     );
     expect(screen.queryByText(mockPokemon.name)).not.toBeInTheDocument();
@@ -63,6 +64,7 @@ describe('PokemonResults', () => {
         error={'Pokémon not found. Status: 404'}
         currentPokemon={null}
         allPokemons={[]}
+        onItemClick={() => {}}
       />
     );
     expect(screen.getByText(/404/)).toBeInTheDocument();
@@ -75,6 +77,7 @@ describe('PokemonResults', () => {
         error={'Pokémon not found. Status: 500'}
         currentPokemon={null}
         allPokemons={[]}
+        onItemClick={() => {}}
       />
     );
     expect(screen.getByText(/500/)).toBeInTheDocument();
