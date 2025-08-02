@@ -52,6 +52,9 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
         margin: '10px',
         backgroundColor: '#f6bd2129',
         borderRadius: '8px',
+        position: 'absolute',
+        top: '10%',
+        right: '10%',
       }}
     >
       <h2>{pokemon.name}</h2>

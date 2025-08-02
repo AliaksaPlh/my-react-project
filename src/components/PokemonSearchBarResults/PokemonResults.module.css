@@ -10,6 +10,7 @@ div.pokemonResults {
 h3 {
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 .wrapper {
   display: flex;
