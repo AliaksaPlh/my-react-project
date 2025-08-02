@@ -13,7 +13,7 @@ describe('useLocalStorage', () => {
 
   it('check if localStorage is empty', () => {
     const { result } = renderHook(() => useLocalStorage(key));
-    expect(result.current.getLocalStorage()).toBe('');
+    expect(result.current.getLocalStorage()).toBe(undefined);
   });
 
   it(' update localStorage when value changes', () => {
