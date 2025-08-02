@@ -36,10 +36,10 @@ const PokemonResults: React.FC<Props> = ({
       </div>
     );
   }
-  if (Array.isArray(allPokemons) && allPokemons.length > 0) {
+  if (Array.isArray(allPokemons) && allPokemons.length) {
     return (
       <div className="pokemonResults">
-        <h3>All Pokémons: name and type</h3>
+        <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
             <li
