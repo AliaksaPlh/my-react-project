@@ -7,21 +7,21 @@ import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
 import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
-import { useSearchTerm } from '../../Hooks/useSerchTerm';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 import PokemonDetails from '../PokemonDetails/PokemonDetails';
 
 const PokemonContainer: React.FC = () => {
-  const [term, setTerm] = useSearchTerm();
+  const [term, setTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
   const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
   const [searchParams, setSearchParams] = useSearchParams(); // for URL
+  const { setLocalStorage } = useLocalStorage('term');
 
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const selectedName = searchParams.get('selected');
-
   useEffect(() => {
     if (term.trim()) {
       fetchPokemon(term.trim());
@@ -36,6 +36,7 @@ const PokemonContainer: React.FC = () => {
 
   const handleSearch = () => {
     const trimmed = term.trim().toLowerCase();
+    setLocalStorage(trimmed);
     setSearchParams({}); // refresh
     if (trimmed === '') {
       fetchAllPokemons();
@@ -113,7 +114,7 @@ const PokemonContainer: React.FC = () => {
         />
         {!currentPokemon &&
           Array.isArray(allPokemons) &&
-          allPokemons.length > 0 && (
+          allPokemons.length && (
             <Pagination
               currentPage={currentPage}
               onPageChange={handlePageChange}
