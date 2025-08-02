@@ -33,7 +33,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
   }, [name]);
 
   if (loading) {
-    return <Loader />;
+    return <Loader style={{ position: 'absolute', top: '40%' }} />;
   }
   if (error) {
     return <div className="details-error">{error}</div>;
