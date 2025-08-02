@@ -17,7 +17,8 @@ h3 {
   flex-direction: column;
   align-items: center;
   max-width: 400px;
-  padding: 20px;
+  margin-bottom: 20px;
+  padding: 0 10px;
   border: 1px solid #f6bd213b;
   border-radius: 12px;
   background-color: #f6bd213b;
