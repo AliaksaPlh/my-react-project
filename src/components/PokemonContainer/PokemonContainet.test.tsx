@@ -98,6 +98,7 @@ describe('PokemonContainer', () => {
     expect(screen.getByText('Loading...')).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+      expect(screen.findByText(/raichu/i));
     });
   });
 });
