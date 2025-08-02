@@ -23,12 +23,14 @@ const PokemonContainer: React.FC = () => {
 
   const selectedName = searchParams.get('selected');
   useEffect(() => {
-    if (term.trim()) {
-      fetchPokemon(term.trim());
+    const searched = searchParams.get('search')?.trim().toLowerCase() || '';
+    setTerm(searched);
+    if (searched) {
+      fetchPokemon(searched);
     } else {
       fetchAllPokemons(currentPage);
     }
-  }, [currentPage]);
+  }, [currentPage, searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
@@ -37,11 +39,12 @@ const PokemonContainer: React.FC = () => {
   const handleSearch = () => {
     const trimmed = term.trim().toLowerCase();
     setLocalStorage(trimmed);
-    setSearchParams({}); // refresh
     if (trimmed === '') {
+      setSearchParams({});
       fetchAllPokemons();
     } else {
       fetchPokemon(trimmed);
+      setSearchParams({ search: trimmed }); // refresh
     }
   };
 
