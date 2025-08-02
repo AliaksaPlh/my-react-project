@@ -50,7 +50,9 @@ const PokemonContainer: React.FC = () => {
 
   const handlePageChange = (newPage: number) => {
     fetchAllPokemons(newPage);
-    setSearchParams({ page: newPage.toString() });
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('page', newPage.toString());
+    setSearchParams(newParams);
   };
   const handleItemClick = (name: string) => {
     const newParams = new URLSearchParams(searchParams);
