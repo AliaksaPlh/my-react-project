@@ -117,14 +117,12 @@ const PokemonContainer: React.FC = () => {
           allPokemons={allPokemons}
           onItemClick={handleItemClick}
         />
-        {!currentPokemon &&
-          Array.isArray(allPokemons) &&
-          allPokemons.length && (
-            <Pagination
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-            />
-          )}
+        {!currentPokemon && allPokemons && allPokemons.length && (
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
         <ErrorBoundaryButton />
       </div>
       {selectedName && (
