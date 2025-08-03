@@ -12,6 +12,7 @@ describe('PokemonResults', () => {
         error={null}
         currentPokemon={mockPokemon}
         allPokemons={[]}
+        onItemClick={() => {}}
       />
     );
     const pokemonName = screen.getByText(mockPokemon.name);
@@ -30,6 +31,7 @@ describe('PokemonResults', () => {
         error={null}
         currentPokemon={null}
         allPokemons={[mockPokemon, mockPokemon2]}
+        onItemClick={() => {}}
       />
     );
     const pokemonName = screen.getByText(mockPokemon.name);
