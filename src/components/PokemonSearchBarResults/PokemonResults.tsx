@@ -8,6 +8,7 @@ type Props = {
   error: string | null;
   currentPokemon: Pokemon | null;
   allPokemons: Pokemon[];
+  onItemClick: (name: string) => void;
 };
 
 const PokemonResults: React.FC<Props> = ({
@@ -15,10 +16,12 @@ const PokemonResults: React.FC<Props> = ({
   error,
   currentPokemon,
   allPokemons,
+  onItemClick,
 }) => {
   if (loading) {
     return <Loader />;
-  } else if (currentPokemon) {
+  }
+  if (currentPokemon) {
     return (
       <div className={styles.wrapper}>
         <h2 className={styles.pokemonName}>{currentPokemon.name}</h2>
@@ -32,13 +35,19 @@ const PokemonResults: React.FC<Props> = ({
         <p>Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}</p>
       </div>
     );
-  } else if (allPokemons.length > 0) {
+  }
+  if (Array.isArray(allPokemons) && allPokemons.length) {
     return (
       <div className="pokemonResults">
-        <h3>All Pokémons: name and type</h3>
+        <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
         <ul className={styles.list}>
           {allPokemons.map((p) => (
-            <li key={p.name} className={styles.listItem}>
+            <li
+              key={p.name}
+              className={styles.listItem}
+              onClick={() => onItemClick?.(p.name)}
+              style={{ cursor: 'pointer' }}
+            >
               <img src={p.sprites.front_default} alt={p.name} />
               <div className="pokemonDetailsBlocks">
                 <strong>{p.name}</strong>
@@ -49,7 +58,8 @@ const PokemonResults: React.FC<Props> = ({
         </ul>
       </div>
     );
-  } else if (error) {
+  }
+  if (error) {
     return <p className={styles.error}>{error}</p>;
   }
 

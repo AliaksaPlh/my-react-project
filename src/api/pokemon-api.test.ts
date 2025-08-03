@@ -1,0 +1,90 @@
+import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { fetchPokemonByName, fetchPokemonsPage } from '../api/pokemon';
+import { mockPokemon, mockShort, mockDetailed } from '../test-utils/mockData';
+
+beforeEach(() => {
+  vi.stubGlobal('fetch', vi.fn());
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+describe('fetchPokemonByName', () => {
+  it('returns Pokémon data on successful fetch', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockPokemon,
+    });
+    const result = await fetchPokemonByName('pikachu');
+    expect(fetch).toHaveBeenCalledWith(
+      'https://pokeapi.co/api/v2/pokemon/pikachu'
+    );
+    expect(result).toEqual(mockPokemon);
+  });
+
+  it('throws error if fetch fails with 404', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: false,
+      status: 404,
+    });
+    await expect(fetchPokemonByName('unknown')).rejects.toThrow(
+      'Pokémon "unknown" not found. Status: 404'
+    );
+  });
+
+  it('throws error if fetch fails with 500', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+    });
+    await expect(fetchPokemonByName('unknown')).rejects.toThrow(
+      'Pokémon "unknown" not found. Status: 500'
+    );
+  });
+});
+
+describe('fetchPokemonsPage', () => {
+  it('returns detailed Pokémon list on all successful fetchs', async () => {
+    (fetch as ReturnType<typeof vi.fn>)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ results: [mockShort] }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockDetailed,
+      });
+    const result = await fetchPokemonsPage(1);
+    expect(result).toEqual([mockDetailed]);
+    expect(fetch).toHaveBeenCalledWith(
+      'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0'
+    );
+  });
+
+  it('throws error if fetch list fails with 500', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+    });
+    await expect(fetchPokemonsPage(1)).rejects.toThrow(
+      'Failed to fetch list. Status: 500'
+    );
+  });
+
+  it('throws error if detail fetch fails with 404', async () => {
+    (fetch as ReturnType<typeof vi.fn>)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ results: [mockShort] }),
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+      });
+    await expect(fetchPokemonsPage(1)).rejects.toThrow(
+      'Failed to fetch Pokémon details. Status: 404'
+    );
+  });
+});
