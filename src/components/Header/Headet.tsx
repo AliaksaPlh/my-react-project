@@ -8,12 +8,12 @@ const Header: React.FC = () => {
       <nav>
         <ul
           style={{
-            padding: 0,
+            padding: 8,
             display: 'flex',
             listStyle: 'none',
             gap: '1rem',
             flexDirection: 'row',
-            marginBottom: '0px',
+            margin: '0px',
           }}
         >
           <li>
