@@ -33,7 +33,9 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
   }, [name]);
 
   if (loading) {
-    return <Loader style={{ position: 'absolute', top: '40%' }} />;
+    return (
+      <Loader style={{ position: 'absolute', top: '40%', right: '15%' }} />
+    );
   }
   if (error) {
     return <div className="details-error">{error}</div>;
@@ -54,7 +56,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
         borderRadius: '8px',
         position: 'absolute',
         top: '10%',
-        right: '10%',
+        right: '14%',
       }}
     >
       <h2>{pokemon.name}</h2>
