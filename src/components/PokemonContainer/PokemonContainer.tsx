@@ -10,6 +10,8 @@ import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import PokemonDetails from '../PokemonDetails/PokemonDetails';
 import SelectedPokemonList from '../../store/SelectedPokemonsBox';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
@@ -104,35 +106,37 @@ const PokemonContainer: React.FC = () => {
     }
   };
   return (
-    <div className="pokemon-container split">
-      <div className="left-section">
-        <SearchBar
-          value={term}
-          onChange={handleChange}
-          onSearch={handleSearch}
-        />
-        <PokemonResults
-          loading={loading}
-          error={error}
-          currentPokemon={currentPokemon}
-          allPokemons={allPokemons}
-          onItemClick={handleItemClick}
-        />
-        {!currentPokemon && allPokemons && allPokemons.length && (
-          <Pagination
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
+    <Provider store={store}>
+      <div className="pokemon-container split">
+        <div className="left-section">
+          <SearchBar
+            value={term}
+            onChange={handleChange}
+            onSearch={handleSearch}
           />
-        )}
-        <ErrorBoundaryButton />
-      </div>
-      {selectedName && (
-        <div className="right-section">
-          <PokemonDetails name={selectedName} onClose={handleCloseDetails} />
+          <PokemonResults
+            loading={loading}
+            error={error}
+            currentPokemon={currentPokemon}
+            allPokemons={allPokemons}
+            onItemClick={handleItemClick}
+          />
+          {!currentPokemon && allPokemons && allPokemons.length && (
+            <Pagination
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
+          <ErrorBoundaryButton />
         </div>
-      )}
-      <SelectedPokemonList />
-    </div>
+        {selectedName && (
+          <div className="right-section">
+            <PokemonDetails name={selectedName} onClose={handleCloseDetails} />
+          </div>
+        )}
+        <SelectedPokemonList />
+      </div>
+    </Provider>
   );
 };
 

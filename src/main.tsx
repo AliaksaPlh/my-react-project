@@ -6,6 +6,8 @@ import NotFound from './components/nonExistingRoutes.tsx';
 import EboutMePage from './components/AboutMe.tsx';
 import App from './App.tsx';
 import { ThemeProvider } from './Context/Themecontext';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,9 @@ if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+          <RouterProvider router={router} />{' '}
+        </Provider>
       </ThemeProvider>
     </StrictMode>
   );
