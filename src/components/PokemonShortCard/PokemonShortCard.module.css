@@ -1,0 +1,19 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1px;
+}
+
+.card:hover {
+  background-color: #f6bd2129;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+.selected {
+  background-color: #b473bd35;
+  border: 0.5px solid #f6bd21;
+  border-radius: 8px;
+  transition: 0.4s;
+}
