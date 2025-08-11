@@ -1,4 +1,4 @@
-import { useTheme, useUpdateTheme } from '../../Context/Themecontext';
+import { useTheme } from '../../Context/Themecontext';
 import Button from '../Button/Button';
 import { useState, useEffect } from 'react';
 import imgDay from '../../assets/dayIcon.svg';
@@ -6,17 +6,17 @@ import imgNight from '../../assets/nightIcon.svg';
 
 const ToggleThemeButton: React.FC = () => {
   const [icon, setIcon] = useState(imgDay);
-  const theme: string = useTheme();
-  const toggleTheme = useUpdateTheme();
+  const theme = useTheme();
+  const toggleTheme = useTheme().toggleTheme;
 
   useEffect(() => {
-    if (theme === 'light') setIcon(imgDay);
-    if (theme === 'dark') setIcon(imgNight);
+    if (theme.theme === 'light') setIcon(imgDay);
+    if (theme.theme === 'dark') setIcon(imgNight);
   }, [theme]);
 
   return (
     <Button
-      onClick={() => toggleTheme(theme === 'light' ? 'dark' : 'light')}
+      onClick={() => toggleTheme()}
       style={{
         position: 'absolute',
         top: '50px',

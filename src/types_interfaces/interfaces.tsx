@@ -16,4 +16,7 @@ export interface PokemonShort {
   url: string;
 }
 
-export type Theme = 'light' | 'dark';
+export interface Theme {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}

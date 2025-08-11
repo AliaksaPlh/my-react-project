@@ -3,11 +3,10 @@ import '@testing-library/jest-dom';
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import type { Mock } from 'vitest';
 import ToggleThemeButton from './ThemeToggle';
-import { useTheme, useUpdateTheme } from '../../Context/Themecontext';
+import { useTheme } from '../../Context/Themecontext';
 
 vi.mock('../../Context/Themecontext', () => ({
   useTheme: vi.fn(),
-  useUpdateTheme: vi.fn(),
 }));
 
 afterEach(() => {
@@ -16,9 +15,11 @@ afterEach(() => {
 
 describe('ToggleThemeButton', () => {
   it('Show icon and toggle theme', () => {
-    (useTheme as Mock).mockReturnValue('light');
     const mockToggle = vi.fn();
-    (useUpdateTheme as Mock).mockReturnValue(mockToggle);
+    (useTheme as Mock).mockReturnValue({
+      theme: 'light',
+      toggleTheme: mockToggle,
+    });
 
     render(<ToggleThemeButton />);
 
@@ -28,6 +29,6 @@ describe('ToggleThemeButton', () => {
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src');
     fireEvent.click(button);
-    expect(mockToggle).toHaveBeenCalledWith('dark');
+    expect(mockToggle).toHaveBeenCalled();
   });
 });

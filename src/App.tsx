@@ -5,9 +5,9 @@ import { useTheme } from './Context/Themecontext';
 import ToggleThemeButton from './components/ThemeToggle/ThemeToggle';
 
 const App = () => {
-  const theme: string = useTheme();
+  const theme = useTheme();
   const themeStyle = {
-    backgroundColor: theme === 'light' ? '#242424' : '#fff',
+    backgroundColor: theme.theme === 'light' ? '#242424' : '#fff',
   };
   return (
     <>
