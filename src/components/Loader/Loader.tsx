@@ -3,6 +3,7 @@ import styles from './Loader.module.css';
 
 interface LoaderProps {
   style?: React.CSSProperties;
+  className?: string;
 }
 const Loader: React.FC<LoaderProps> = ({ style }) => {
   return (

@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  --primary-violet: #b473bd;
+  --primary-violet-opacity: #b473bd35;
+  --yellow-main: #f5e652;
 }
 
 @keyframes logo-spin {

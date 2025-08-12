@@ -1,0 +1,17 @@
+.pokemon-details {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 5px;
+  margin: 10px;
+  background-color: #f6bd2129;
+  border-radius: 8px;
+  position: absolute;
+  top: 10%;
+  right: 14%;
+}
+.loader {
+  position: absolute;
+  top: 40%;
+  right: 15%;
+}

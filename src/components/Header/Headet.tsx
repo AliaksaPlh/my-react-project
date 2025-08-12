@@ -1,28 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
-import fontstyle from '../../StyleProject';
+import './Header.css';
 
 const Header: React.FC = () => {
   return (
     <header>
       <nav>
-        <ul
-          style={{
-            padding: 8,
-            display: 'flex',
-            listStyle: 'none',
-            gap: '1rem',
-            flexDirection: 'row',
-            margin: '0px',
-          }}
-        >
+        <ul>
           <li>
-            <Link to="/about" style={fontstyle}>
+            <Link to="/about" className="link">
               About Me
             </Link>
           </li>
           <li>
-            <Link to="*" style={fontstyle}>
+            <Link to="*" className="link">
               Not Exist
             </Link>
           </li>

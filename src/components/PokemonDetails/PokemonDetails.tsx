@@ -3,6 +3,7 @@ import { fetchPokemonByName } from '../../api/pokemon';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import Loader from '../Loader/Loader';
 import Button from '../Button/Button';
+import './PokemonDetails.css';
 
 interface Props {
   name: string;
@@ -33,9 +34,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
   }, [name]);
 
   if (loading) {
-    return (
-      <Loader style={{ position: 'absolute', top: '40%', right: '15%' }} />
-    );
+    return <Loader className="loader" />;
   }
   if (error) {
     return <div className="details-error">{error}</div>;
@@ -44,21 +43,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
     return null;
   }
   return (
-    <div
-      className="pokemon-details"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '5px',
-        margin: '10px',
-        backgroundColor: '#f6bd2129',
-        borderRadius: '8px',
-        position: 'absolute',
-        top: '10%',
-        right: '14%',
-      }}
-    >
+    <div className="pokemon-details">
       <h2>{pokemon.name}</h2>
       <img
         src={pokemon.sprites.front_default}
@@ -68,7 +53,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <p>Types: {pokemon.types.map((t) => t.type.name).join(', ')}</p>
-      <Button onClick={onClose} className="close-button">
+      <Button onClick={onClose} className="close-button secondary">
         Close
       </Button>
     </div>

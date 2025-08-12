@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
+import './Pagination.css';
 
 interface Props {
   currentPage: number;
@@ -8,21 +9,11 @@ interface Props {
 
 const Pagination: React.FC<Props> = ({ currentPage, onPageChange }) => {
   return (
-    <div
-      style={{
-        margin: '10px',
-        display: 'flex',
-        gap: '10px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '8px',
-        transition: 'all 0.25s',
-      }}
-    >
+    <div className="pagination-container">
       <Button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="pagination-button"
+        className="pagination-button secondary"
       >
         Previous
       </Button>
@@ -31,7 +22,7 @@ const Pagination: React.FC<Props> = ({ currentPage, onPageChange }) => {
 
       <Button
         onClick={() => onPageChange(currentPage + 1)}
-        className="pagination-button"
+        className="pagination-button secondary"
       >
         Next
       </Button>
