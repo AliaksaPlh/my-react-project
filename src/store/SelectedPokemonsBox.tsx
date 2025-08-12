@@ -33,14 +33,7 @@ const SelectedPokemonList: React.FC = () => {
         ✔️ <strong> {selectedPokemons.length}</strong>
       </h3>
       <br />
-      <Button
-        onClick={handleClear}
-        style={{
-          backgroundColor: '#b473bd',
-          color: '#f5e652',
-          fontWeight: 'bold',
-        }}
-      >
+      <Button onClick={handleClear} className="selectedPokemons">
         Unselect all 🧽
       </Button>
     </div>

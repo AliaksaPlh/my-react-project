@@ -15,14 +15,7 @@ const ToggleThemeButton: React.FC = () => {
   }, [theme]);
 
   return (
-    <Button
-      onClick={() => toggleTheme()}
-      style={{
-        position: 'absolute',
-        top: '50px',
-        right: '10px',
-      }}
-    >
+    <Button className="theme-toggle secondary" onClick={() => toggleTheme()}>
       {' '}
       <img
         src={icon}
@@ -31,7 +24,7 @@ const ToggleThemeButton: React.FC = () => {
           height: '25px',
           width: '25px',
         }}
-      />{' '}
+      />
     </Button>
   );
 };
