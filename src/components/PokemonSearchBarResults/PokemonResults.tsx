@@ -3,8 +3,6 @@ import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';
 import Loader from '../Loader/Loader';
 import PokemonShortCard from '../PokemonShortCard/PokemonShortCard';
-import { Provider } from 'react-redux';
-import store from '../../store/store';
 
 type Props = {
   loading: boolean;
@@ -41,20 +39,18 @@ const PokemonResults: React.FC<Props> = ({
   }
   if (Array.isArray(allPokemons) && allPokemons.length) {
     return (
-      <Provider store={store}>
-        <div className="pokemonResults">
-          <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
-          <ul className={styles.list}>
-            {allPokemons.map((p: Pokemon) => (
-              <PokemonShortCard
-                key={p.name}
-                pokemon={p}
-                onItemClick={onItemClick}
-              />
-            ))}
-          </ul>
-        </div>
-      </Provider>
+      <div className="pokemonResults">
+        <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
+        <ul className={styles.list}>
+          {allPokemons.map((p: Pokemon) => (
+            <PokemonShortCard
+              key={p.name}
+              pokemon={p}
+              onItemClick={onItemClick}
+            />
+          ))}
+        </ul>
+      </div>
     );
   }
   if (error) {
