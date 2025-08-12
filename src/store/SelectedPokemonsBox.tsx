@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from './store';
 import { clearAllSelectedPokemon } from './slice';
 import Button from '../components/Button/Button';
+import './SelectedPokemonsBox.css';
 
 const SelectedPokemonList: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,17 +19,7 @@ const SelectedPokemonList: React.FC = () => {
     return;
   }
   return (
-    <div
-      style={{
-        border: '0.5px solid #f6bd21',
-        backgroundColor: '#f6bd2129',
-        borderRadius: '8px',
-        padding: '10px',
-        position: 'absolute',
-        bottom: '1rem',
-        right: '5px',
-      }}
-    >
+    <div className="container">
       <h3>
         ✔️ <strong> {selectedPokemons.length}</strong>
       </h3>
