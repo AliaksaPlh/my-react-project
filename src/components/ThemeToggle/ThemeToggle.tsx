@@ -3,6 +3,7 @@ import Button from '../Button/Button';
 import { useState, useEffect } from 'react';
 import imgDay from '../../assets/dayIcon.svg';
 import imgNight from '../../assets/nightIcon.svg';
+import { LIGHT, DARK } from '../../const';
 
 const ToggleThemeButton: React.FC = () => {
   const [icon, setIcon] = useState(imgDay);
@@ -10,8 +11,8 @@ const ToggleThemeButton: React.FC = () => {
   const toggleTheme = useTheme().toggleTheme;
 
   useEffect(() => {
-    if (theme.theme === 'light') setIcon(imgDay);
-    if (theme.theme === 'dark') setIcon(imgNight);
+    if (theme.theme === LIGHT) setIcon(imgDay);
+    if (theme.theme === DARK) setIcon(imgNight);
   }, [theme]);
 
   return (

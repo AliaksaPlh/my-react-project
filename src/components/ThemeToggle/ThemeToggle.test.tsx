@@ -4,6 +4,7 @@ import { describe, it, expect, afterEach, vi } from 'vitest';
 import type { Mock } from 'vitest';
 import ToggleThemeButton from './ThemeToggle';
 import { useTheme } from '../../Context/Themecontext';
+import { LIGHT } from '../../const';
 
 vi.mock('../../Context/Themecontext', () => ({
   useTheme: vi.fn(),
@@ -17,7 +18,7 @@ describe('ToggleThemeButton', () => {
   it('Show icon and toggle theme', () => {
     const mockToggle = vi.fn();
     (useTheme as Mock).mockReturnValue({
-      theme: 'light',
+      theme: LIGHT,
       toggleTheme: mockToggle,
     });
 

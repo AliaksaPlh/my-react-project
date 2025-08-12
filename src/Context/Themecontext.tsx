@@ -1,9 +1,10 @@
 import React from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { Theme } from '../types_interfaces/interfaces';
+import { LIGHT, DARK } from '../const';
 
 const ThemeContext = createContext<Theme>({
-  theme: 'light',
+  theme: LIGHT,
   toggleTheme: () => {},
 });
 
@@ -14,13 +15,13 @@ export function useTheme() {
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<typeof LIGHT | typeof DARK>(LIGHT);
   useEffect(() => {
-    document.body.classList.remove('light', 'dark');
+    document.body.classList.remove(LIGHT, DARK);
     document.body.classList.add(`${theme}`);
   }, [theme]);
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) => (prevTheme === LIGHT ? DARK : LIGHT));
   };
 
   return (
