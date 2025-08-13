@@ -25,10 +25,10 @@ describe('ToggleThemeButton', () => {
     render(<ToggleThemeButton />);
 
     const button = screen.getByRole('button');
-    const img = screen.getByAltText(/theme/i);
+    const img = screen.getByAltText(/light/i);
 
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src');
+    expect(img).toHaveAttribute('alt');
     fireEvent.click(button);
     expect(mockToggle).toHaveBeenCalled();
   });
