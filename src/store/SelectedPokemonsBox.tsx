@@ -1,15 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from './store';
+import { useAppSelector } from '../Hooks/useAppSelector';
+import { useAppDispatch } from '../Hooks/useAppDispatch';
 import { clearAllSelectedPokemon } from './slice';
 import Button from '../components/Button/Button';
 import './SelectedPokemonsBox.css';
 
 const SelectedPokemonList: React.FC = () => {
-  const dispatch = useDispatch();
-  const selectedPokemons = useSelector(
-    (state: RootState) => state.pokemon.selected
-  );
+  const dispatch = useAppDispatch();
+  const selectedPokemons = useAppSelector((state) => state.pokemon.selected);
 
   const handleClear = () => {
     dispatch(clearAllSelectedPokemon());

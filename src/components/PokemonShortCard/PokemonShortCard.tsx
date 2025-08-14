@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Pokemon } from '../../types_interfaces/interfaces';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector } from '../../Hooks/useAppSelector';
+import { useAppDispatch } from '../../Hooks/useAppDispatch';
 import { addSelectedPokemon, removeSelectedPokemon } from '../../store/slice';
-import type { RootState } from '../../store/store';
 import styles from './PokemonShortCard.module.css';
 
 type Props = {
@@ -11,11 +11,9 @@ type Props = {
 };
 
 const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const selectedPokemons = useSelector(
-    (state: RootState) => state.pokemon.selected
-  );
+  const selectedPokemons = useAppSelector((state) => state.pokemon.selected);
 
   const isSelected = selectedPokemons.some((p) => p.name === pokemon.name);
 
