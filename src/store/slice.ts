@@ -14,12 +14,7 @@ const pokemonSlice = createSlice({
   initialState,
   reducers: {
     addSelectedPokemon: (state, action: PayloadAction<Pokemon>) => {
-      const alreadyExists = state.selected.some(
-        (p) => p.name === action.payload.name
-      );
-      if (!alreadyExists) {
-        state.selected.push(action.payload);
-      }
+      state.selected.push(action.payload);
     },
     removeSelectedPokemon: (state, action: PayloadAction<string>) => {
       state.selected = state.selected.filter((p) => p.name !== action.payload);
@@ -34,4 +29,5 @@ export const {
   removeSelectedPokemon,
   clearAllSelectedPokemon,
 } = pokemonSlice.actions;
+
 export default pokemonSlice.reducer;
