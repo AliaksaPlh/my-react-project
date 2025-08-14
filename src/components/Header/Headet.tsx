@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <header>
       <nav>
-        <ul>
+        <ul className="header-panel">
           <li>
             <Link to="/about" className="link">
               About Me

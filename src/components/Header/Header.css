@@ -7,8 +7,15 @@
   color: var(--yellow);
 }
 
-ul {
+ul.header-panel {
   padding: 8px;
   list-style: none;
   margin: 0px;
+  display: flex;
+  gap: 1rem;
+  transition: 0.3s;
+}
+ul.header-panel > li:hover {
+  color: #f5e652;
+  cursor: grab;
 }

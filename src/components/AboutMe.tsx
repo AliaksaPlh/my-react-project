@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import Button from './Button/Button';
+import dogs from '../assets/dogs.svg';
 
 const EboutMePage: React.FC = () => {
   const navigate = useNavigate();
@@ -43,6 +44,17 @@ const EboutMePage: React.FC = () => {
       <Button onClick={handleGoHome} className="go-home-button">
         Go Home
       </Button>
+      <img
+        src={dogs}
+        alt="fone"
+        style={{
+          position: 'absolute',
+          top: '0',
+          height: '100%',
+          zIndex: '-1',
+          opacity: '11%',
+        }}
+      />
     </div>
   );
 };

@@ -8,12 +8,12 @@
 .card:hover {
   background-color: #f6bd2129;
   border-radius: 8px;
-  transition: 0.4s;
+  transition: 0.25s;
 }
 
 .selected {
   background-color: #b473bd35;
   border: 0.5px solid #f6bd21;
   border-radius: 8px;
-  transition: 0.4s;
+  transition: 0.3s;
 }
