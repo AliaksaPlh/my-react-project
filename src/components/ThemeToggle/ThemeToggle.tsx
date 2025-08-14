@@ -10,15 +10,14 @@ const mapThemeToImage = {
 };
 
 const ToggleThemeButton: React.FC = () => {
-  const theme = useTheme();
-  const toggleTheme = theme.toggleTheme;
-  const icon = mapThemeToImage[theme.theme] || imgDay;
+  const { theme, toggleTheme } = useTheme();
+  const icon = mapThemeToImage[theme] || imgDay;
 
   return (
     <Button className="theme-toggle secondary" onClick={() => toggleTheme()}>
       <img
         src={icon}
-        alt={theme.theme}
+        alt={theme}
         style={{
           height: '25px',
           width: '25px',
