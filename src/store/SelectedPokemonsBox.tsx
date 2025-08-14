@@ -4,10 +4,11 @@ import { useAppDispatch } from '../Hooks/useAppDispatch';
 import { clearAllSelectedPokemon } from './slice';
 import Button from '../components/Button/Button';
 import './SelectedPokemonsBox.css';
+import { selectPokemons } from './slice';
 
 const SelectedPokemonList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const selectedPokemons = useAppSelector((state) => state.pokemon.selected);
+  const selectedPokemons = useAppSelector(selectPokemons);
 
   const handleClear = () => {
     dispatch(clearAllSelectedPokemon());

@@ -4,6 +4,7 @@ import { useAppSelector } from '../../Hooks/useAppSelector';
 import { useAppDispatch } from '../../Hooks/useAppDispatch';
 import { addSelectedPokemon, removeSelectedPokemon } from '../../store/slice';
 import styles from './PokemonShortCard.module.css';
+import { selectPokemons } from '../../store/slice';
 
 type Props = {
   pokemon: Pokemon;
@@ -13,7 +14,7 @@ type Props = {
 const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
   const dispatch = useAppDispatch();
 
-  const selectedPokemons = useAppSelector((state) => state.pokemon.selected);
+  const selectedPokemons = useAppSelector(selectPokemons);
 
   const isSelected = selectedPokemons.some((p) => p.name === pokemon.name);
 
