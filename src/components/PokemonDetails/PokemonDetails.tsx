@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { fetchPokemonByName } from '../../api/pokemon';
-import type { Pokemon } from '../../types_interfaces/interfaces';
+import React from 'react';
 import Loader from '../Loader/Loader';
 import Button from '../Button/Button';
 import './PokemonDetails.css';
+import { useGetPokemonByNameQuery } from '../../api/Query/pokemonApi';
 
 interface Props {
   name: string;
@@ -11,33 +10,10 @@ interface Props {
 }
 
 const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: pokemon, isFetching } = useGetPokemonByNameQuery(name);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchPokemonByName(name);
-        setPokemon(data);
-      } catch (error: unknown) {
-        const message =
-          error instanceof Error ? error.message : 'Failed to load details';
-        setError(message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [name]);
-
-  if (loading) {
+  if (isFetching) {
     return <Loader className="loader" />;
-  }
-  if (error) {
-    return <div className="details-error">{error}</div>;
   }
   if (!pokemon) {
     return null;
