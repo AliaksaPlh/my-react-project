@@ -13,20 +13,10 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
   disabled = false,
-  style,
   className,
 }) => {
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={className}
-      style={{
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.6 : 1,
-        ...style,
-      }}
-    >
+    <button onClick={onClick} disabled={disabled} className={className}>
       {children}
     </button>
   );

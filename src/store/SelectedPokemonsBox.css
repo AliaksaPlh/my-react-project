@@ -1,0 +1,9 @@
+div.container {
+  border: 0.5px solid #f6bd21;
+  background-color: #f6bd2129;
+  border-radius: 8px;
+  padding: 10px;
+  position: absolute;
+  bottom: 1rem;
+  right: 5px;
+}

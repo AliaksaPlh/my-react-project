@@ -2,6 +2,7 @@ import React from 'react';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';
 import Loader from '../Loader/Loader';
+import PokemonShortCard from '../PokemonShortCard/PokemonShortCard';
 
 type Props = {
   loading: boolean;
@@ -41,19 +42,12 @@ const PokemonResults: React.FC<Props> = ({
       <div className="pokemonResults">
         <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
         <ul className={styles.list}>
-          {allPokemons.map((p) => (
-            <li
+          {allPokemons.map((p: Pokemon) => (
+            <PokemonShortCard
               key={p.name}
-              className={styles.listItem}
-              onClick={() => onItemClick?.(p.name)}
-              style={{ cursor: 'pointer' }}
-            >
-              <img src={p.sprites.front_default} alt={p.name} />
-              <div className="pokemonDetailsBlocks">
-                <strong>{p.name}</strong>
-                <p> {p.types.map((t) => t.type.name).join(', ')}</p>
-              </div>
-            </li>
+              pokemon={p}
+              onItemClick={onItemClick}
+            />
           ))}
         </ul>
       </div>

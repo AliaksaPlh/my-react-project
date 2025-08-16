@@ -3,6 +3,15 @@ import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
 import PokemonResults from './PokemonResults';
 import { mockPokemon, mockPokemon2 } from '../../test-utils/mockData';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import pokemonReducer from '../../store/slice';
+
+const testStore = configureStore({
+  reducer: {
+    pokemon: pokemonReducer,
+  },
+});
 
 describe('PokemonResults', () => {
   it('displays pokemon card from currentPokemon if provided', () => {
@@ -26,13 +35,15 @@ describe('PokemonResults', () => {
 
   it('displays all pokemon cards from allPokemons if provided', () => {
     render(
-      <PokemonResults
-        loading={false}
-        error={null}
-        currentPokemon={null}
-        allPokemons={[mockPokemon, mockPokemon2]}
-        onItemClick={() => {}}
-      />
+      <Provider store={testStore}>
+        <PokemonResults
+          loading={false}
+          error={null}
+          currentPokemon={null}
+          allPokemons={[mockPokemon, mockPokemon2]}
+          onItemClick={() => {}}
+        />{' '}
+      </Provider>
     );
     const pokemonName = screen.getByText(mockPokemon.name);
     const pokemonName2 = screen.getByText(mockPokemon2.name);

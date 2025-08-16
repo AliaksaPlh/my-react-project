@@ -1,3 +1,10 @@
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 .regularButton {
   background-color: #b473bd;
   border: 0.5px solid transparent;
@@ -16,7 +23,7 @@
   border: 0.5px solid transparent;
   border-radius: 8px;
   border-color: #f5e55285;
-  color: #b473bd;
+  color: var(--primary-violet);
   font-weight: bold;
   font-style: inherit;
   font-size: inherit;
@@ -24,7 +31,19 @@
   padding: 10px 20px;
   transition: border-color 0.25s;
 }
-
+.selectedPokemons {
+  background-color: #b473bd;
+  color: #f5e652;
+  font-weight: bold;
+}
+button.secondary {
+  background-color: #b473bd35;
+}
+.theme-toggle {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+}
 button:hover {
   border-color: #f6bd21;
   background-color: #d689e0;

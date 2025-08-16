@@ -1,0 +1,29 @@
+.pokemon-details {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 0;
+  background-color: #f6bd2129;
+  border-radius: 8px;
+  position: absolute;
+  top: 50px;
+  right: 6%;
+  transition: border-color 0.25s;
+}
+.pokemon-details:hover {
+  border: 1px solid #f5e652;
+}
+.loader {
+  position: absolute;
+  top: 40%;
+  right: 15%;
+}
+h2 {
+  margin: 0;
+  text-align: center;
+}
+p {
+  margin: 0;
+}

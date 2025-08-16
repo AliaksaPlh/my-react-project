@@ -9,6 +9,7 @@ import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import PokemonDetails from '../PokemonDetails/PokemonDetails';
+import SelectedPokemonList from '../../store/SelectedPokemonsBox';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
@@ -130,6 +131,7 @@ const PokemonContainer: React.FC = () => {
           <PokemonDetails name={selectedName} onClose={handleCloseDetails} />
         </div>
       )}
+      <SelectedPokemonList />
     </div>
   );
 };
