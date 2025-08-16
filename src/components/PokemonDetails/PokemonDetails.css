@@ -27,3 +27,7 @@ h2 {
 p {
   margin: 0;
 }
+.details-image {
+  width: 150px;
+  height: 150px;
+}

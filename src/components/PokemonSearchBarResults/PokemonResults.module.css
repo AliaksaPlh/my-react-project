@@ -34,8 +34,14 @@ h3 {
 .image {
   display: block;
   margin: 0 auto 16px;
+  width: 300px;
+  height: 300px;
 }
-
+.pokemonInfo {
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: center; */
+}
 .list {
   columns: 2;
   max-height: 400px;

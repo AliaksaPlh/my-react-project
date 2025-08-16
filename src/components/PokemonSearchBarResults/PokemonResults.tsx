@@ -27,13 +27,17 @@ const PokemonResults: React.FC<Props> = ({
       <div className={styles.wrapper}>
         <h2 className={styles.pokemonName}>{currentPokemon.name}</h2>
         <img
-          src={currentPokemon.sprites.front_default}
+          src={currentPokemon.sprites.other.dream_world.front_default}
           alt={currentPokemon.name}
           className={styles.image}
         />
-        <p>Height: {currentPokemon.height}</p>
-        <p>Weight: {currentPokemon.weight}</p>
-        <p>Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}</p>
+        <div className={styles.pokemonInfo}>
+          <p>Height: {currentPokemon.height}</p>
+          <p>Weight: {currentPokemon.weight}</p>
+          <p>
+            Types: {currentPokemon.types.map((t) => t.type.name).join(', ')}
+          </p>
+        </div>
       </div>
     );
   }

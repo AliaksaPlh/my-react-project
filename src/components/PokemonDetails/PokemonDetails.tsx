@@ -22,7 +22,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
     <div className="pokemon-details">
       <h2>{pokemon.name}</h2>
       <img
-        src={pokemon.sprites.front_default}
+        src={pokemon.sprites.other.dream_world.front_default}
         alt={pokemon.name}
         className="details-image"
       />
