@@ -11,12 +11,7 @@ export const pokemonApi = createApi({
     getPokemonByName: build.query<Pokemon, string>({
       query: (name) => `/${name}`,
     }),
-    // getPokemonByPage: build.query<Pokemon[], { page: number; limit?: 20 }>({
-    //   query: ()
-    // }),
   }),
 });
 
-//   Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const { useGetPokemonByNameQuery } = pokemonApi;
