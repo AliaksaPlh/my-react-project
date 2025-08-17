@@ -8,8 +8,8 @@ import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import useLocalStorage from '../../Hooks/useLocalStorage';
-import PokemonDetails from '../PokemonDetails/PokemonDetails';
-import SelectedPokemonList from '../../store/SelectedPokemonsBox';
+import PokemonDetailsModule from '../PokemonDetailsModule/PokemonDetailsModule';
+import SelectedPokemonList from '../../store/SelectedPokemonsBox/SelectedPokemonsBox';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
@@ -74,6 +74,7 @@ const PokemonContainer: React.FC = () => {
 
     try {
       const data: Pokemon = await fetchPokemonByName(name);
+      console.log(data);
       setCurrentPokemon(data);
       setLoading(false);
     } catch (error: unknown) {
@@ -128,7 +129,10 @@ const PokemonContainer: React.FC = () => {
       </div>
       {selectedName && (
         <div className="right-section">
-          <PokemonDetails name={selectedName} onClose={handleCloseDetails} />
+          <PokemonDetailsModule
+            name={selectedName}
+            onClose={handleCloseDetails}
+          />
         </div>
       )}
       <SelectedPokemonList />

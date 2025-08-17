@@ -1,19 +1,21 @@
 import React from 'react';
 import Loader from '../Loader/Loader';
-import Button from '../Button/Button';
 import './PokemonDetails.css';
 import { useGetPokemonByNameQuery } from '../../api/Query/pokemonApi';
 
 interface Props {
   name: string;
-  onClose: () => void;
+  children?: React.ReactNode;
 }
 
-const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
-  const { data: pokemon, isFetching } = useGetPokemonByNameQuery(name);
+const PokemonDetails: React.FC<Props> = ({ name, children }) => {
+  const { data: pokemon, isFetching, isError } = useGetPokemonByNameQuery(name);
 
   if (isFetching) {
     return <Loader className="loader" />;
+  }
+  if (isError) {
+    return <div>Error...</div>;
   }
   if (!pokemon) {
     return null;
@@ -29,9 +31,7 @@ const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <p>Types: {pokemon.types.map((t) => t.type.name).join(', ')}</p>
-      <Button onClick={onClose} className="close-button secondary">
-        Close
-      </Button>
+      {children}
     </div>
   );
 };

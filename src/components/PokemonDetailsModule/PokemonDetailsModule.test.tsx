@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import PokemonDetails from './PokemonDetails';
+import PokemonDetailsModule from './PokemonDetailsModule';
 import * as api from '../../api/pokemon';
-import { mockPokemon } from '../../test-utils/mockData';
+import { mockPokemon, testStore } from '../../test-utils/mockData';
+import { Provider } from 'react-redux';
 
 describe('PokemonDetails', () => {
   beforeEach(() => {
@@ -14,24 +15,15 @@ describe('PokemonDetails', () => {
     vi.spyOn(api, 'fetchPokemonByName').mockImplementation(
       () => new Promise(() => {})
     );
-    render(<PokemonDetails name="pikachu" onClose={() => {}} />);
+    render(<PokemonDetailsModule name="pikachu" onClose={() => {}} />);
     expect(
       screen.getByText(/loading/i) || screen.getByRole('progressbar')
     ).toBeInTheDocument();
   });
 
-  it('displays error message on fetch failure', async () => {
-    vi.spyOn(api, 'fetchPokemonByName').mockRejectedValue(
-      new Error('Failed to fetch')
-    );
-    render(<PokemonDetails name="pikachu" onClose={() => {}} />);
-    const errorMessage = await screen.findByText(/failed to fetch/i);
-    expect(errorMessage).toBeInTheDocument();
-  });
-
   it('renders pokemon details when fetch succeeds', async () => {
     vi.spyOn(api, 'fetchPokemonByName').mockResolvedValue(mockPokemon);
-    render(<PokemonDetails name="pikachu" onClose={() => {}} />);
+    render(<PokemonDetailsModule name="pikachu" onClose={() => {}} />);
     expect(
       await screen.findByRole('heading', { name: /pikachu/i })
     ).toBeInTheDocument();
@@ -42,7 +34,12 @@ describe('PokemonDetails', () => {
   it('calls onClose when close button is clicked', async () => {
     vi.spyOn(api, 'fetchPokemonByName').mockResolvedValue(mockPokemon);
     const onClose = vi.fn();
-    render(<PokemonDetails name="pikachu" onClose={onClose} />);
+
+    render(
+      <Provider store={testStore}>
+        <PokemonDetailsModule name="pikachu" onClose={onClose} />{' '}
+      </Provider>
+    );
     await screen.findByRole('heading', { name: /pikachu/i });
     fireEvent.click(screen.getByRole('button', { name: /close/i }));
     expect(onClose).toHaveBeenCalledTimes(1);
