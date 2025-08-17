@@ -1,10 +1,10 @@
 import React from 'react';
-import { useAppSelector } from '../Hooks/useAppSelector';
-import { useAppDispatch } from '../Hooks/useAppDispatch';
-import { clearAllSelectedPokemon } from './slice';
-import Button from '../components/Button/Button';
+import { useAppSelector } from '../../Hooks/useAppSelector';
+import { useAppDispatch } from '../../Hooks/useAppDispatch';
+import { clearAllSelectedPokemon } from '../slice';
+import Button from '../../components/Button/Button';
 import './SelectedPokemonsBox.css';
-import { selectPokemons } from './slice';
+import { selectPokemons } from '../slice';
 
 const SelectedPokemonList: React.FC = () => {
   const dispatch = useAppDispatch();
