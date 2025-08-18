@@ -9,7 +9,6 @@ import Pagination from '../Pagination/Pagination';
 import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import PokemonDetailsModule from '../PokemonDetailsModule/PokemonDetailsModule';
-import SelectedPokemonList from '../../store/SelectedPokemonsBox/SelectedPokemonsBox';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
@@ -135,7 +134,6 @@ const PokemonContainer: React.FC = () => {
           />
         </div>
       )}
-      <SelectedPokemonList />
     </div>
   );
 };
