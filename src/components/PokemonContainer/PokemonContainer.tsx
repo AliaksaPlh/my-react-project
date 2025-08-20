@@ -1,36 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { SearchBar } from '../SearchBar/SearchBar';
 import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
-import type { Pokemon } from '../../types_interfaces/interfaces';
 import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
 import './PokemonContainer.css';
 import Pagination from '../Pagination/Pagination';
-import { fetchPokemonByName, fetchPokemonsPage } from '../../api/pokemon';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import PokemonDetailsModule from '../PokemonDetailsModule/PokemonDetailsModule';
 
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
-  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchParams, setSearchParams] = useSearchParams(); // for URL
   const { setLocalStorage } = useLocalStorage('term');
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
-
   const selectedName = searchParams.get('selected');
-  useEffect(() => {
-    const searched = searchParams.get('search')?.trim().toLowerCase() || '';
-    setTerm(searched);
-    if (searched) {
-      fetchPokemon(searched);
-    } else {
-      fetchAllPokemons(currentPage);
-    }
-  }, [currentPage, searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
@@ -39,17 +24,16 @@ const PokemonContainer: React.FC = () => {
   const handleSearch = () => {
     const trimmed = term.trim().toLowerCase();
     setLocalStorage(trimmed);
+    setSearchTerm(trimmed);
+
     if (trimmed === '') {
       setSearchParams({});
-      fetchAllPokemons();
     } else {
-      fetchPokemon(trimmed);
       setSearchParams({ search: trimmed }); // refresh
     }
   };
 
   const handlePageChange = (newPage: number) => {
-    fetchAllPokemons(newPage);
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', newPage.toString());
     setSearchParams(newParams);
@@ -65,44 +49,6 @@ const PokemonContainer: React.FC = () => {
     setSearchParams(newParams);
   };
 
-  const fetchPokemon = async (name: string) => {
-    setLoading(true);
-    setError(null);
-    setCurrentPokemon(null);
-    setAllPokemons([]);
-
-    try {
-      const data: Pokemon = await fetchPokemonByName(name);
-      console.log(data);
-      setCurrentPokemon(data);
-      setLoading(false);
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : 'Unknown error occurred';
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchAllPokemons = async (page: number = 1) => {
-    setLoading(true);
-    setError(null);
-    setCurrentPokemon(null);
-    setAllPokemons([]);
-
-    try {
-      const detailedPokemons: Pokemon[] = await fetchPokemonsPage(page);
-      setAllPokemons(detailedPokemons);
-      setLoading(false);
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : 'Unknown error occurred';
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div className="pokemon-container split">
       <div className="left-section">
@@ -112,13 +58,11 @@ const PokemonContainer: React.FC = () => {
           onSearch={handleSearch}
         />
         <PokemonResults
-          loading={loading}
-          error={error}
-          currentPokemon={currentPokemon}
-          allPokemons={allPokemons}
+          term={searchTerm}
+          currentPage={currentPage}
           onItemClick={handleItemClick}
         />
-        {!currentPokemon && allPokemons && allPokemons.length && (
+        {!searchParams.get('search') && (
           <Pagination
             currentPage={currentPage}
             onPageChange={handlePageChange}
