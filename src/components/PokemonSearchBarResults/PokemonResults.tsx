@@ -38,9 +38,7 @@ const PokemonResults: React.FC<Props> = ({
   if (term && isFetchingByName) return <Loader />;
   if (!term && (isFetching || isLoading)) return <Loader />;
   if (searchError || pageError)
-    return (
-      <p className={styles.error}>Error loading pokemons, check the name.</p>
-    );
+    return <p className={styles.error}>Error, check the name.</p>;
 
   if (term && !isFetchingByName && currentPokemon) {
     return (
