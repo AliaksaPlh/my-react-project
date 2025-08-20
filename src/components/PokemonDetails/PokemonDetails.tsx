@@ -6,6 +6,8 @@ import { useGetPokemonByNameQuery } from '../../api/Query/pokemonApi';
 interface Props {
   name: string;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 const PokemonDetails: React.FC<Props> = ({ name, children }) => {
@@ -21,7 +23,7 @@ const PokemonDetails: React.FC<Props> = ({ name, children }) => {
     return null;
   }
   return (
-    <div className="pokemon-details">
+    <div className="pokemon-details module">
       <h2>{pokemon.name}</h2>
       <img
         src={pokemon.sprites.other.dream_world.front_default}

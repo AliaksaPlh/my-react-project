@@ -26,3 +26,18 @@ export interface Theme {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
+
+export interface ApiParamsByPage<P> {
+  count: number;
+  next: string | null;
+  prev: string | null;
+  results: P[];
+}
+
+export interface ApiRequestByPage {
+  apiRequest?: string | null;
+  offset: number;
+  limit: number;
+}
+
+export type GetPokemonByPage = ApiParamsByPage<Pokemon> | Pokemon;

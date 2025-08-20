@@ -1,9 +1,8 @@
 import React from 'react';
 import Loader from '../Loader/Loader';
 import Button from '../Button/Button';
-import './PokemonDetailsModule.css';
 import { useGetPokemonByNameQuery } from '../../api/Query/pokemonApi';
-import PokemonDetails from '../PokemonDetailsSearchresult/PokemonDetails';
+import PokemonDetails from '../PokemonDetails/PokemonDetails';
 
 interface Props {
   name: string;

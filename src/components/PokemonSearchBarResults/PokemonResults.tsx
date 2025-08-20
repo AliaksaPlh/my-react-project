@@ -2,27 +2,45 @@ import React from 'react';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';
 import Loader from '../Loader/Loader';
-import PokemonShortCard from '../PokemonShortCard/PokemonShortCard';
-
+import PokemonShortCardsList from '../PokemonShortCardsList/PokemonShortCardsList';
+import {
+  useGetPokemonByPageQuery,
+  useGetPokemonByNameQuery,
+} from '../../api/Query/pokemonApi';
 type Props = {
-  loading: boolean;
-  error: string | null;
-  currentPokemon: Pokemon | null;
-  allPokemons: Pokemon[];
+  term: string;
+  currentPage: number;
+  currentPokemon?: Pokemon | null;
   onItemClick: (name: string) => void;
 };
 
 const PokemonResults: React.FC<Props> = ({
-  loading,
-  error,
-  currentPokemon,
-  allPokemons,
+  term,
+  currentPage,
   onItemClick,
 }) => {
-  if (loading) {
-    return <Loader />;
-  }
-  if (currentPokemon) {
+  const {
+    data: currentPokemon,
+    error: searchError,
+    isFetching: isFetchingByName,
+  } = useGetPokemonByNameQuery(term, { skip: !term });
+
+  const {
+    data: allPokemons,
+    error: pageError,
+    isFetching,
+    isLoading,
+  } = useGetPokemonByPageQuery(
+    { offset: (currentPage - 1) * 20, limit: 20 },
+    { skip: !!term }
+  );
+
+  if (term && isFetchingByName) return <Loader />;
+  if (!term && (isFetching || isLoading)) return <Loader />;
+  if (searchError || pageError)
+    return <p className={styles.error}>Error, check the name.</p>;
+
+  if (term && !isFetchingByName && currentPokemon) {
     return (
       <div className={styles.wrapper}>
         <h2 className={styles.pokemonName}>{currentPokemon.name}</h2>
@@ -32,6 +50,7 @@ const PokemonResults: React.FC<Props> = ({
           className={styles.image}
         />
         <div className={styles.pokemonInfo}>
+          <p>Order: {currentPokemon.id}</p>
           <p>Height: {currentPokemon.height}</p>
           <p>Weight: {currentPokemon.weight}</p>
           <p>
@@ -41,24 +60,23 @@ const PokemonResults: React.FC<Props> = ({
       </div>
     );
   }
-  if (Array.isArray(allPokemons) && allPokemons.length) {
+  if (!term && allPokemons && 'results' in allPokemons) {
     return (
       <div className="pokemonResults">
         <h3 style={{ cursor: 'default' }}>All Pokémons: name and type</h3>
         <ul className={styles.list}>
-          {allPokemons.map((p: Pokemon) => (
-            <PokemonShortCard
-              key={p.name}
-              pokemon={p}
-              onItemClick={onItemClick}
-            />
-          ))}
+          {allPokemons.results.map((p: { name: string }) => {
+            return (
+              <PokemonShortCardsList
+                key={p.name}
+                name={p.name}
+                onItemClick={onItemClick}
+              />
+            );
+          })}
         </ul>
       </div>
     );
-  }
-  if (error) {
-    return <p className={styles.error}>{error}</p>;
   }
 
   return null;
