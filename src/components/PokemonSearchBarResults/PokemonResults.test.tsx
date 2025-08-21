@@ -17,10 +17,8 @@ describe('PokemonResults', () => {
   it('displays pokemon card from currentPokemon if provided', () => {
     render(
       <PokemonResults
-        loading={false}
-        error={null}
-        currentPokemon={mockPokemon}
-        allPokemons={[]}
+        term={mockPokemon.name}
+        currentPage={0}
         onItemClick={() => {}}
       />
     );
@@ -37,10 +35,8 @@ describe('PokemonResults', () => {
     render(
       <Provider store={testStore}>
         <PokemonResults
-          loading={false}
-          error={null}
-          currentPokemon={null}
-          allPokemons={[mockPokemon, mockPokemon2]}
+          term={mockPokemon.name}
+          currentPage={0}
           onItemClick={() => {}}
         />{' '}
       </Provider>
@@ -56,10 +52,8 @@ describe('PokemonResults', () => {
   it('displays nothing if currentPokemon and allPokemons are null or empty, and no error', () => {
     render(
       <PokemonResults
-        loading={false}
-        error={null}
-        currentPokemon={null}
-        allPokemons={[]}
+        term={mockPokemon.name}
+        currentPage={0}
         onItemClick={() => {}}
       />
     );
@@ -73,10 +67,8 @@ describe('PokemonResults', () => {
   it('error message when API fails with 404', () => {
     render(
       <PokemonResults
-        loading={false}
-        error={'Pokémon not found. Status: 404'}
-        currentPokemon={null}
-        allPokemons={[]}
+        term={mockPokemon.name}
+        currentPage={0}
         onItemClick={() => {}}
       />
     );
@@ -86,10 +78,8 @@ describe('PokemonResults', () => {
   it('error message when API fails with 500', () => {
     render(
       <PokemonResults
-        loading={false}
-        error={'Pokémon not found. Status: 500'}
-        currentPokemon={null}
-        allPokemons={[]}
+        term={mockPokemon.name}
+        currentPage={0}
         onItemClick={() => {}}
       />
     );
