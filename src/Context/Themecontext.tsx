@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { Theme } from '../types_interfaces/interfaces';

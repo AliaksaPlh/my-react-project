@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';

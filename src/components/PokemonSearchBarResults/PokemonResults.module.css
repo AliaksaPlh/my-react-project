@@ -1,17 +1,17 @@
-* {
+/* * {
   color: #b473bd;
   font-weight: bold;
-}
+} */
 
 div.pokemonResults {
   display: flex;
   align-items: center;
 }
-h3 {
+/* h3 {
   display: flex;
   justify-content: center;
   margin: 0;
-}
+} */
 .wrapper {
   display: flex;
   flex-direction: column;

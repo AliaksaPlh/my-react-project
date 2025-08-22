@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useAppSelector } from '../../Hooks/useAppSelector';
 import { useAppDispatch } from '../../Hooks/useAppDispatch';
