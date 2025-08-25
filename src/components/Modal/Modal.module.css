@@ -1,0 +1,36 @@
+.overlay {
+  position: sticky;
+  height: 100%;
+  width: 100vw;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  border-radius: 8px;
+  padding: 30px;
+  position: relative;
+  min-width: 350px;
+  max-width: 90vw;
+  box-shadow: 0 4px 32px #ffffff78;
+  background: #f792b5;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: #ffffff9d;
+  color: #e8236b;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.closeBtn:hover {
+  background: #ffffff;
+  border-radius: 4px solid #ffffff;
+}
