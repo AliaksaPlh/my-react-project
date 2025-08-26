@@ -4,11 +4,11 @@
   font-weight: bold;
 }
 
-p {
+p.error {
   color: #bf1650;
 }
 
-p::before {
+p.error::before {
   display: inline;
   content: '⚠ ';
 }

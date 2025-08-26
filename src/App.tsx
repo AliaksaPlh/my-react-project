@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Form from './components/Forms/FormControled/Form';
 import Modal from './components/Modal/Modal';
+import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
   const [openControlled, setOpenControlled] = useState(false);
@@ -11,20 +12,23 @@ function App() {
     <>
       <div>
         {!openControlled && !openUncontrolled && (
-          <div className="formOpenButtons">
-            <button
-              className="formButton"
-              onClick={() => setOpenControlled(true)}
-            >
-              Controlled Form
-            </button>
-            <button
-              className="formButton"
-              onClick={() => setOpenUncontrolled(true)}
-            >
-              Uncontrolled Form
-            </button>
-          </div>
+          <>
+            <div className="formOpenButtons">
+              <button
+                className="formButton"
+                onClick={() => setOpenControlled(true)}
+              >
+                Controlled Form
+              </button>
+              <button
+                className="formButton"
+                onClick={() => setOpenUncontrolled(true)}
+              >
+                Uncontrolled Form
+              </button>
+            </div>
+            <UserProfile />
+          </>
         )}
 
         <Modal isOpen={openControlled} onClose={() => setOpenControlled(false)}>

@@ -1,0 +1,34 @@
+h2 {
+  margin: 12px 0;
+  border-radius: 6px;
+  background-color: #ff2676b8;
+}
+p.userInfo {
+  margin: 8px 0;
+  color: #ff2676;
+  border-radius: 6px;
+  background-color: #ffffff3d;
+}
+
+div.userProfile {
+  border: 2px solid #ff26758d;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px auto;
+  min-width: 350px;
+  background-color: #ffffff39;
+  box-shadow: 0 4px 32px #ffffff78;
+}
+
+div.userProfileUpdated {
+  border: 3px solid #ffb3268d;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px auto;
+  min-width: 350px;
+  box-shadow: 0 4px 32px #ffffff78;
+  background: #f792b5;
+}
+strong {
+  color: #ffffffae;
+}
