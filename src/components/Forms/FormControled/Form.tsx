@@ -65,7 +65,6 @@ export default function Form() {
 
       <label>Upload Photo:</label>
       <input type="file" {...register('photo')} accept=".jpeg, .png" />
-      {errors.photo && <p>{errors.photo.message}</p>}
 
       <label>Accept Terms and Conditions:</label>
       <input type="checkbox" {...register('acceptTerms')} />
