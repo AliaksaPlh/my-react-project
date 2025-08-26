@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './Modal.module.css';
+import { createPortal } from 'react-dom';
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,15 +25,18 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   if (!isOpen) return;
 
-  return (
-    <div className={styles.overlay} onClick={onClose}>
+  return createPortal(
+    <div className={styles.modalContainer}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={onClose}>
           ✘
         </button>
         {children}
       </div>
-    </div>
+      <div className={styles.overlay} onClick={onClose}></div>
+    </div>,
+
+    document.body
   );
 };
 
