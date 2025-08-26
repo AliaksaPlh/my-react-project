@@ -1,17 +1,17 @@
 h2 {
   margin: 12px 0;
   border-radius: 6px;
-  background-color: #ff2676b8;
+  background-color: #f792b5;
 }
 p.userInfo {
   margin: 8px 0;
-  color: #ff2676;
+  color: #ff367f;
   border-radius: 6px;
-  background-color: #ffffff3d;
+  background-color: #ffffff65;
 }
 
 div.userProfile {
-  border: 2px solid #ff26758d;
+  border: 2px solid #f792b5;
   border-radius: 8px;
   padding: 16px;
   margin: 20px auto;
@@ -31,4 +31,11 @@ div.userProfileUpdated {
 }
 strong {
   color: #ffffffae;
+}
+.photo {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #f792b5;
 }

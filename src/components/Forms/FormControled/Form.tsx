@@ -6,6 +6,7 @@ import { countries } from '../../../utils/consts';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../store/store';
 import { setFormData } from '../../store/slice';
+import { toBase64 } from '../../../utils/helpers';
 
 export default function Form() {
   const {
@@ -28,7 +29,13 @@ export default function Form() {
   const onSubmit: SubmitHandler<FormDataFields> = async (data) => {
     console.log(data);
     console.log('Test form submitted successfully with valid data console log');
-    dispatch(setFormData(data));
+    if (data.photo && data.photo[0]) {
+      const file = data.photo[0];
+      const base64 = await toBase64(file);
+      dispatch(setFormData({ ...data, photo: base64 }));
+    } else {
+      dispatch(setFormData(data));
+    }
   };
   console.log(errors);
 

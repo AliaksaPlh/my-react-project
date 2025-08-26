@@ -22,6 +22,11 @@ const UserProfile = () => {
   return (
     <div className={isUpdated ? styles.userProfileUpdated : styles.userProfile}>
       <h2>User Information</h2>
+      {formData.photo && typeof formData.photo === 'string' && (
+        <div>
+          <img src={formData.photo} alt="User photo" className={styles.photo} />
+        </div>
+      )}
       <p className={styles.userInfo}>
         <strong>Name:</strong> {formData.name}
       </p>
@@ -37,11 +42,7 @@ const UserProfile = () => {
       <p className={styles.userInfo}>
         <strong>Country Short Code:</strong> {formData.country}
       </p>
-      {formData.photo && (
-        <p>
-          <strong>Photo:</strong> {String(formData.photo)}
-        </p>
-      )}
+
       <p className={styles.userInfo}>
         <strong>Password:</strong> *** (hidden)
       </p>
