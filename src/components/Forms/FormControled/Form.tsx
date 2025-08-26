@@ -11,6 +11,13 @@ export default function Form() {
     formState: { errors, isValid },
   } = useForm<FormDataFields>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      name: 'Alex',
+      age: 25,
+      eMail: 'alex@example.com',
+      gender: 'male',
+      country: countries[0].code,
+    },
   });
 
   const onSubmit: SubmitHandler<FormDataFields> = async (data) => {
