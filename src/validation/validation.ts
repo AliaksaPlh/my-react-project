@@ -11,7 +11,7 @@ export const schema = z
       .regex(/^[A-Z][a-zA-Z]*$/, {
         message: 'First letter must be uppercase',
       }),
-    age: z.number().min(0, { message: 'is required' }),
+    age: z.number().min(0, { message: 'Ageis required' }),
     eMail: z.email({ message: 'Invalid email' }),
     password: z
       .string()

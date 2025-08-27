@@ -45,12 +45,18 @@ export default function Form({ onClose }: FormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formHook}>
       <label> Name:</label>
-      <input type="name" {...register('name')} placeholder="Enter your Name" />
+      <input
+        type="name"
+        data-testid="name"
+        {...register('name')}
+        placeholder="Enter your Name"
+      />
       {errors.name && <p className={styles.error}>{errors.name.message}</p>}
 
       <label>Age:</label>
       <input
         type="number"
+        data-testid="age"
         placeholder="Enter your real age (positive number)"
         {...register('age', { valueAsNumber: true })}
       />
@@ -59,13 +65,14 @@ export default function Form({ onClose }: FormProps) {
       <label>E-mail:</label>
       <input
         type="email"
+        data-testid="email"
         {...register('eMail')}
         placeholder="Enter your E-mail"
       />
       {errors.eMail && <p className={styles.error}>{errors.eMail.message}</p>}
 
       <label>Gender Selection:</label>
-      <select {...register('gender')}>
+      <select {...register('gender')} data-testid="gender">
         <option value="female">female</option>
         <option value="male">male</option>
       </select>
@@ -73,6 +80,7 @@ export default function Form({ onClose }: FormProps) {
       <label>Password:</label>
       <input
         type="password"
+        data-testid="password"
         {...register('password')}
         placeholder="min 6 (uppercase, lowercase digit, special char)"
       />
@@ -83,6 +91,7 @@ export default function Form({ onClose }: FormProps) {
       <label>Check Password:</label>
       <input
         type="password"
+        data-testid="checkPsw"
         {...register('checkPassword')}
         placeholder="Confirm your Password"
       />
@@ -91,20 +100,30 @@ export default function Form({ onClose }: FormProps) {
       )}
 
       <label>Upload Photo:</label>
-      <input type="file" {...register('photo')} accept=".jpeg, .png" />
+      <input
+        type="file"
+        data-testid="photo"
+        {...register('photo')}
+        accept=".jpeg, .png"
+      />
 
       <label>Accept Terms and Conditions:</label>
-      <input type="checkbox" {...register('acceptTerms')} />
+      <input type="checkbox" data-testid="terms" {...register('acceptTerms')} />
 
       <label>Country:</label>
-      <select {...register('country')}>
+      <select data-testid="country" {...register('country')}>
         {countries.map((country) => (
           <option key={country.code} value={country.code}>
             {country.name}
           </option>
         ))}
       </select>
-      <input type="submit" value="Submit" disabled={!isValid} />
+      <input
+        type="submit"
+        data-testid="submit"
+        value="Submit"
+        disabled={!isValid}
+      />
     </form>
   );
 }
