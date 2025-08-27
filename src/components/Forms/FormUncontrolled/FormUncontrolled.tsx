@@ -53,6 +53,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         errs[field] = err.message;
       });
       setErrors(errs);
+      console.log(errs);
       return;
     }
 
@@ -74,6 +75,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="name"
         type="text"
+        data-testid="name"
         defaultValue="Alex"
         ref={(el) => {
           formRefs.current.name = el;
@@ -86,6 +88,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="age"
         type="number"
+        data-testid="age"
         defaultValue={25}
         ref={(el) => {
           formRefs.current.age = el;
@@ -98,6 +101,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="eMail"
         type="email"
+        data-testid="email"
         defaultValue="alex@example.com"
         placeholder="Enter your E-mail"
         ref={(el) => {
@@ -109,6 +113,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <label htmlFor="gender">Gender Selection:</label>
       <select
         id="gender"
+        data-testid="gender"
         ref={(el) => {
           formRefs.current.gender = el;
         }}
@@ -121,6 +126,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="password"
         type="password"
+        data-testid="password"
         placeholder="min 6 (uppercase, lowercase digit, special char)"
         ref={(el) => {
           formRefs.current.password = el;
@@ -132,6 +138,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="checkPassword"
         type="password"
+        data-testid="checkPsw"
         placeholder="Confirm your Password"
         ref={(el) => {
           formRefs.current.checkPassword = el;
@@ -145,6 +152,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="photo"
         type="file"
+        data-testid="photo"
         accept=".jpeg,.png"
         ref={(el) => {
           formRefs.current.photo = el;
@@ -156,6 +164,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <input
         id="acceptTerms"
         type="checkbox"
+        data-testid="terms"
         ref={(el) => {
           formRefs.current.acceptTerms = el;
         }}
@@ -167,6 +176,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       <label htmlFor="country">Country:</label>
       <select
         id="country"
+        data-testid="country"
         ref={(el) => {
           formRefs.current.country = el;
         }}
@@ -180,7 +190,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
       </select>
       {errors.country && <p className={styles.error}>{errors.country}</p>}
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" data-testid="submit" />
     </form>
   );
 }

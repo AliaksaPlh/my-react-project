@@ -139,7 +139,7 @@ describe('Form', () => {
 
     await waitFor(() => {
       expect(screen.queryByText(/name is required/i)).not.toBeInTheDocument();
-      expect(screen.queryByText(/ageis required/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/age is required/i)).not.toBeInTheDocument();
       expect(screen.queryByText(/invalid email/i)).not.toBeInTheDocument();
       expect(
         screen.queryByText(/password is required, at least 6 characters/i)
