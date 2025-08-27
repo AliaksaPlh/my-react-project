@@ -32,7 +32,7 @@ function App() {
         )}
 
         <Modal isOpen={openControlled} onClose={() => setOpenControlled(false)}>
-          <Form />
+          <Form onClose={() => setOpenControlled(false)} />
         </Modal>
 
         <Modal

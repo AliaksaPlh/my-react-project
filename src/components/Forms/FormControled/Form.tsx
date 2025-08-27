@@ -8,7 +8,11 @@ import { type AppDispatch } from '../../store/store';
 import { setFormData } from '../../store/slice';
 import { toBase64 } from '../../../utils/helpers';
 
-export default function Form() {
+type FormProps = {
+  onClose?: () => void;
+};
+
+export default function Form({ onClose }: FormProps) {
   const {
     register,
     handleSubmit,
@@ -23,7 +27,6 @@ export default function Form() {
       country: countries[0].code,
     },
   });
-
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<FormDataFields> = async (data) => {
@@ -36,9 +39,9 @@ export default function Form() {
     } else {
       dispatch(setFormData(data));
     }
+    if (onClose) onClose();
   };
   console.log(errors);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formHook}>
       <label> Name:</label>
