@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Form from './components/Forms/FormControled/Form';
+import FormUncontrolled from './components/Forms/FormUncontrolled/FormUncontrolled';
 import Modal from './components/Modal/Modal';
 import UserProfile from './components/UserProfile/UserProfile';
 
@@ -39,7 +40,9 @@ function App() {
           isOpen={openUncontrolled}
           onClose={() => setOpenUncontrolled(false)}
         >
-          <div>Uncontrolled Form (to be implemented)</div>
+          <div>
+            <FormUncontrolled onClose={() => setOpenUncontrolled(false)} />
+          </div>
         </Modal>
       </div>
     </>
