@@ -79,4 +79,19 @@ describe('Form', () => {
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
+  it('validation check for name', async () => {
+    renderWithProvider(<FormUncontrolled />);
+    const nameInput = screen.getByTestId('name');
+    const submitButton = screen.getByTestId('submit');
+
+    fireEvent.change(nameInput, { target: { value: 'Alexa' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage =
+        screen.queryByText(/with a capital letter/i) ||
+        screen.queryByText(/name is required/i);
+      expect(errorMessage).not.toBeInTheDocument();
+    });
+  });
 });
