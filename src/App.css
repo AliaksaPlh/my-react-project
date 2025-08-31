@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+a {
+  color: #b473bd;
+  font-weight: bold;
+}
+a:hover {
+  color: #ab50fb;
+}
