@@ -1,0 +1,54 @@
+div.countryTable {
+  max-width: 1230px;
+  overflow-x: scroll;
+}
+
+div.tableContainer {
+  overflow: scroll;
+  margin-top: 1rem;
+  max-width: 1230px;
+  overflow-x: auto;
+  margin: 0 auto;
+  padding: 16px 0;
+  border: 2px solid #b7d3fa;
+  border-radius: 22px;
+  padding: 0;
+  display: table;
+  overflow-x: scroll;
+}
+.table {
+  border-spacing: 0 1px;
+  min-width: 700px;
+  font-family: inherit;
+  width: 100%;
+  background-color: #f5f3f5;
+  border-radius: 20px;
+  color: #467599;
+  overflow-x: auto;
+  font-weight: 600;
+}
+thead tr {
+  border-radius: 20px;
+  border-bottom: 2px solid #b7d3fa;
+}
+
+th {
+  background-color: #cde5ff;
+  font-weight: 600;
+  font-size: 1.05em;
+  color: #3269a8;
+  border-bottom: 2px solid #b7d3fa;
+  border-radius: 20px;
+}
+
+tbody tr:hover td {
+  background-color: #7bb3f7;
+  transition: 0.1s;
+}
+
+th,
+td {
+  padding: 12px 8px;
+  text-align: left;
+  border-right: 24px solid transparent;
+}

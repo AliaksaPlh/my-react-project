@@ -1,0 +1,78 @@
+.menuBar {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin: 1rem;
+  position: sticky;
+  top: 1rem;
+  background-color: #cde5ff;
+  font-weight: 600;
+  font-size: 1.05em;
+  color: #3269a8;
+  border: 2px solid #b7d3fa;
+  border-radius: 20px;
+  max-width: 1000px;
+}
+
+.menuField {
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.button {
+  background-color: #3269a8;
+  border: 2px solid #3269a8;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-bottom: 2px;
+  font-size: 1em;
+  font-weight: 600;
+  color: #ecf3fb;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.button:hover {
+  background-color: #b7d3fa;
+  color: #3269a8;
+  border: 2px solid #3269a8;
+}
+.button:focus {
+  outline: none;
+  background-color: #b7d3fa;
+  color: #3269a8;
+  border: 2px solid #3269a8;
+}
+.input {
+  padding: 6px 12px;
+  font-size: 1em;
+  border: 2px solid #f5f3f5;
+  border-radius: 8px;
+  background-color: #3269a8;
+  border: 1;
+  color: #ecf3fb;
+}
+input:hover {
+  background-color: #b7d3fa;
+  color: #3269a8;
+}
+input:focus {
+  outline: none;
+  background-color: #b7d3fa;
+  color: #3269a8;
+}
+
+.select {
+  outline: none;
+  padding: 6px 12px;
+  font-size: 1em;
+  border: 2px solid #f5f3f5;
+  border-radius: 8px;
+  background-color: #3269a8;
+  color: #ecf3fb;
+}

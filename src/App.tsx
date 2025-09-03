@@ -1,16 +1,13 @@
-import "./App.css";
+import { Suspense } from 'react';
+import Spinner from './components/Spinner/Spinner';
+import MainPage from './components/MainPage/MainPage';
 
-function App() {
+export default function App() {
   return (
     <>
-      <h1>Welcome to my App</h1>
-      <h2>
-        <a href="https://heroic-lollipop-c859e0.netlify.app/">
-          Visit my Pokemon API App
-        </a>
-      </h2>
+      <Suspense fallback={<Spinner />}>
+        <MainPage />
+      </Suspense>
     </>
   );
 }
-
-export default App;

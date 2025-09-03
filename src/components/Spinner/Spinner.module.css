@@ -9,8 +9,8 @@
 .spinner {
   width: 35px;
   height: 35px;
-  border: 6px solid #ffd153;
-  border-top: 6px solid #b473bd;
+  border: 6px solid #b7d3fa;
+  border-top: 6px solid #3269a8;
   border-radius: 50%;
   animation: spin 1.3s linear infinite;
   margin-bottom: 12px;
@@ -19,7 +19,7 @@
 .text {
   font-size: 16px;
   font-weight: bold;
-  color: #b473bd;
+  color: #3269a8;
 }
 
 @keyframes spin {

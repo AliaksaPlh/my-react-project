@@ -1,7 +1,7 @@
-import type { Countries } from '../types, interfaces, consts/interface';
-import { API_URL } from '../types, interfaces, consts/consts';
+import type { Countries } from '../types, consts/types';
+import { API_URL } from '../types, consts/consts';
 
-async function fetchData(): Promise<Countries | null> {
+export async function fetchCo2Data(): Promise<Countries | null> {
   try {
     const response = await fetch(API_URL);
 
@@ -24,5 +24,3 @@ async function fetchData(): Promise<Countries | null> {
     );
   }
 }
-
-export const dataCountries = fetchData();
