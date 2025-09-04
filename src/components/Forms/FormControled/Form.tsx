@@ -19,19 +19,19 @@ export default function Form({ onClose }: FormProps) {
     formState: { errors, isValid },
   } = useForm<FormDataFields>({
     resolver: zodResolver(schema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
-      name: 'Alex',
-      age: 25,
-      eMail: 'alex@example.com',
-      gender: 'male',
-      country: countries[0].code,
+      name: '',
+      age: undefined,
+      eMail: '',
+      gender: undefined,
+      country: undefined,
     },
   });
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<FormDataFields> = async (data) => {
-    console.log(data);
-    console.log('Test form submitted successfully with valid data console log');
     if (data.photo && data.photo[0]) {
       const file = data.photo[0];
       const base64 = await toBase64(file);
@@ -39,9 +39,8 @@ export default function Form({ onClose }: FormProps) {
     } else {
       dispatch(setFormData(data));
     }
-    if (onClose) onClose();
+    onClose?.();
   };
-  console.log(errors);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formHook}>
       <label> Name:</label>
@@ -73,6 +72,7 @@ export default function Form({ onClose }: FormProps) {
 
       <label>Gender Selection:</label>
       <select {...register('gender')} data-testid="gender">
+        <option>Select gender</option>
         <option value="female">female</option>
         <option value="male">male</option>
       </select>
@@ -82,7 +82,7 @@ export default function Form({ onClose }: FormProps) {
         type="password"
         data-testid="password"
         {...register('password')}
-        placeholder="min 6 (uppercase, lowercase digit, special char)"
+        placeholder="min 12 (uppercase, lowercase digit, special char)"
       />
       {errors.password && (
         <p className={styles.error}>{errors.password.message}</p>
@@ -112,6 +112,7 @@ export default function Form({ onClose }: FormProps) {
 
       <label>Country:</label>
       <select data-testid="country" {...register('country')}>
+        <option>Select country</option>
         {countries.map((country) => (
           <option key={country.code} value={country.code}>
             {country.name}

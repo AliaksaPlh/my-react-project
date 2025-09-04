@@ -26,9 +26,9 @@ export default function FormUncontrolled({ onClose }: FormProps) {
     e.preventDefault();
 
     const dataToValidate = {
-      name: formRefs.current.name?.value || 'Alex',
-      age: Number(formRefs.current.age?.value || 25),
-      eMail: formRefs.current.eMail?.value || 'alex@example.com',
+      name: formRefs.current.name?.value || '',
+      age: Number(formRefs.current.age?.value || null),
+      eMail: formRefs.current.eMail?.value || '',
       password: formRefs.current.password?.value || '',
       checkPassword: formRefs.current.checkPassword?.value || '',
       gender: formRefs.current.gender?.value as 'female' | 'male',
@@ -53,7 +53,6 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         errs[field] = err.message;
       });
       setErrors(errs);
-      console.log(errs);
       return;
     }
 
@@ -76,7 +75,6 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         id="name"
         type="text"
         data-testid="name"
-        defaultValue="Alex"
         ref={(el) => {
           formRefs.current.name = el;
         }}
@@ -89,7 +87,6 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         id="age"
         type="number"
         data-testid="age"
-        defaultValue={25}
         ref={(el) => {
           formRefs.current.age = el;
         }}
@@ -102,7 +99,6 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         id="eMail"
         type="email"
         data-testid="email"
-        defaultValue="alex@example.com"
         placeholder="Enter your E-mail"
         ref={(el) => {
           formRefs.current.eMail = el;
@@ -118,6 +114,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
           formRefs.current.gender = el;
         }}
       >
+        <option>Select gender</option>
         <option value="female">female</option>
         <option value="male">male</option>
       </select>
@@ -127,7 +124,7 @@ export default function FormUncontrolled({ onClose }: FormProps) {
         id="password"
         type="password"
         data-testid="password"
-        placeholder="min 6 (uppercase, lowercase digit, special char)"
+        placeholder="min 12 (uppercase, lowercase digit, special char)"
         ref={(el) => {
           formRefs.current.password = el;
         }}

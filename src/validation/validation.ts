@@ -15,7 +15,7 @@ export const schema = z
     eMail: z.email({ message: 'Invalid email' }),
     password: z
       .string()
-      .min(6, { message: 'Password is required, at least 6 characters' })
+      .min(12, { message: 'Password is required, at least 12 characters' })
       .regex(/[a-z]/, {
         message: 'Password should contain at least one lowercase',
       })
@@ -28,7 +28,7 @@ export const schema = z
       }),
     checkPassword: z
       .string()
-      .min(1, { message: 'You need to confirm password correctly' }),
+      .min(12, { message: 'You need to confirm password correctly' }),
     gender: z.enum(['female', 'male'], {
       message: 'Select gender',
     }),
