@@ -37,7 +37,10 @@ const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
         onChange={handleCheckboxChange}
         onClick={(e) => e.stopPropagation()}
       />
-      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <img
+        src={pokemon.sprites.other.dream_world.front_default}
+        alt={pokemon.name}
+      />
       <div className="pokemonDetailsBlocks">
         <strong>{pokemon.name}</strong>
         <p> {pokemon.types.map((t) => t.type.name).join(', ')}</p>

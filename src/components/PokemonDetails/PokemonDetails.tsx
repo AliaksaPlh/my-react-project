@@ -1,61 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { fetchPokemonByName } from '../../api/pokemon';
-import type { Pokemon } from '../../types_interfaces/interfaces';
+import React from 'react';
 import Loader from '../Loader/Loader';
-import Button from '../Button/Button';
 import './PokemonDetails.css';
+import { useGetPokemonByNameQuery } from '../../api/Query/pokemonApi';
 
 interface Props {
   name: string;
-  onClose: () => void;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
-const PokemonDetails: React.FC<Props> = ({ name, onClose }) => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const PokemonDetails: React.FC<Props> = ({ name, children }) => {
+  const { data: pokemon, isFetching, isError } = useGetPokemonByNameQuery(name);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchPokemonByName(name);
-        setPokemon(data);
-      } catch (error: unknown) {
-        const message =
-          error instanceof Error ? error.message : 'Failed to load details';
-        setError(message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [name]);
-
-  if (loading) {
+  if (isFetching) {
     return <Loader className="loader" />;
   }
-  if (error) {
-    return <div className="details-error">{error}</div>;
+  if (isError) {
+    return <div>Error...</div>;
   }
   if (!pokemon) {
     return null;
   }
   return (
-    <div className="pokemon-details">
+    <div className="pokemon-details module">
       <h2>{pokemon.name}</h2>
       <img
-        src={pokemon.sprites.front_default}
+        src={pokemon.sprites.other.dream_world.front_default}
         alt={pokemon.name}
         className="details-image"
       />
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <p>Types: {pokemon.types.map((t) => t.type.name).join(', ')}</p>
-      <Button onClick={onClose} className="close-button secondary">
-        Close
-      </Button>
+      {children}
     </div>
   );
 };

@@ -1,18 +1,19 @@
-.pokemon-details {
+.module {
   display: flex;
   flex-direction: column;
   align-self: center;
   padding: 10px;
   margin: 10px;
   margin-top: 0;
-  background-color: #f6bd2129;
+  background-color: #f6bd2150;
   border-radius: 8px;
   position: absolute;
   top: 50px;
   right: 6%;
   transition: border-color 0.25s;
+  z-index: 90;
 }
-.pokemon-details:hover {
+.module:hover {
   border: 1px solid #f5e652;
 }
 .loader {
@@ -26,4 +27,8 @@ h2 {
 }
 p {
   margin: 0;
+}
+div.module > img.details-image {
+  width: 150px;
+  height: 150px;
 }
