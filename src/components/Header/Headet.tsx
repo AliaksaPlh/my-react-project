@@ -1,25 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '../../i18n/navigation';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import './Header.css';
 
-const Header: React.FC = () => {
+export default async function Header() {
+  const t = await getTranslations('Navigation');
+
   return (
     <header>
       <nav>
         <ul className="header-panel">
           <li>
-            <Link to="/about" className="link">
-              About Me
+            <Link href="/about" className="link">
+              {t('about')}
             </Link>
           </li>
           <li>
-            <Link to="*" className="link">
-              Not Exist
+            <Link href="/not-exist" className="link">
+              {t('notExist')}
             </Link>
+          </li>
+          <li>
+            <LanguageSwitcher />
           </li>
         </ul>
       </nav>
     </header>
   );
-};
-export default Header;
+}

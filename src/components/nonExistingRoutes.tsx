@@ -1,14 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import Button from './Button/Button';
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '../i18n/navigation';
 import pokemon from '../assets/pokemon.svg';
 
-const NotFound: React.FC = () => {
-  const navigate = useNavigate();
+export default async function NotFound() {
+  const t = await getTranslations('NotFound');
 
-  const handleGoHome = () => {
-    navigate('/');
-  };
   return (
     <div
       style={{
@@ -20,23 +17,22 @@ const NotFound: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      <img
+      <Image
         src={pokemon}
         alt="pokemon"
+        width={32}
+        height={32}
         style={{
           height: '2rem',
+          width: '2rem',
           position: 'absolute',
         }}
       />
-      <h1>404 - Page Not Found</h1>
-      <p style={{ width: '25rem', textAlign: 'center' }}>
-        Sorry, the page you are looking for does not exist.
-      </p>
-      <Button onClick={handleGoHome} className="go-home-button">
-        Go Home
-      </Button>
+      <h1>{t('title')}</h1>
+      <p style={{ width: '25rem', textAlign: 'center' }}>{t('message')}</p>
+      <Link href="/" className="go-home-button">
+        {t('home')}
+      </Link>
     </div>
   );
-};
-
-export default NotFound;
+}

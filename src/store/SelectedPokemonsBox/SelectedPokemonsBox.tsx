@@ -1,19 +1,25 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useAppSelector } from '../../Hooks/useAppSelector';
 import { useAppDispatch } from '../../Hooks/useAppDispatch';
 import { clearAllSelectedPokemon } from '../slice';
 import Button from '../../components/Button/Button';
 import './SelectedPokemonsBox.css';
 import { selectPokemons } from '../slice';
-import { parseDownload } from '../../helpers';
 import download from '../../assets/download.png';
 import complete from '../../assets/complete.png';
+import { useTranslations } from 'next-intl';
 
 const SelectedPokemonList: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedPokemons = useAppSelector(selectPokemons);
+  const t = useTranslations('Selected');
+  const selectedNames = selectedPokemons
+    .map((pokemon) => pokemon.name)
+    .join(',');
+  const csvHref = `/api/pokemon-csv?names=${encodeURIComponent(selectedNames)}`;
 
   const handleClear = () => {
     dispatch(clearAllSelectedPokemon());
@@ -27,9 +33,11 @@ const SelectedPokemonList: React.FC = () => {
       <div className="up">
         <h3>
           {' '}
-          <img
+          <Image
             src={complete}
             alt="✔️ "
+            width={25}
+            height={25}
             style={{
               height: '25px',
               width: '25px',
@@ -40,11 +48,13 @@ const SelectedPokemonList: React.FC = () => {
         <a
           className="anchorDownload"
           download={`${selectedPokemons.length}_items.csv`}
-          href={parseDownload(selectedPokemons)}
+          href={csvHref}
         >
-          <img
+          <Image
             src={download}
-            alt="Download"
+            alt={t('download')}
+            width={25}
+            height={25}
             style={{
               height: '25px',
               width: '25px',
@@ -53,7 +63,7 @@ const SelectedPokemonList: React.FC = () => {
         </a>{' '}
       </div>
       <Button onClick={handleClear} className="selectedPokemons">
-        Unselect all 🧽
+        {t('unselectAll')}
       </Button>
     </div>
   );

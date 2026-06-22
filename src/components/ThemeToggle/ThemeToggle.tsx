@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useTheme } from '../../Context/Themecontext';
 import Button from '../Button/Button';
 import imgDay from '../../assets/dayIcon.svg';
@@ -15,9 +16,11 @@ const ToggleThemeButton: React.FC = () => {
 
   return (
     <Button className="theme-toggle secondary" onClick={() => toggleTheme()}>
-      <img
+      <Image
         src={icon}
         alt={theme}
+        width={25}
+        height={25}
         style={{
           height: '25px',
           width: '25px',

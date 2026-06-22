@@ -1,20 +1,64 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, it, expect } from 'vitest';
+import { beforeEach, describe, it, expect, vi } from 'vitest';
 import PokemonResults from './PokemonResults';
-import { mockPokemon, mockPokemon2 } from '../../test-utils/mockData';
+import {
+  mockPokemon,
+  mockPokemon2,
+  testStore,
+} from '../../test-utils/mockData';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import pokemonReducer from '../../store/slice';
 
-const testStore = configureStore({
-  reducer: {
-    pokemon: pokemonReducer,
+const pokemonApiMock = vi.hoisted(() => ({
+  useGetPokemonByNameQuery: vi.fn(),
+  useGetPokemonByPageQuery: vi.fn(),
+}));
+
+vi.mock('../../api/Query/pokemonApi', () => ({
+  pokemonApi: {
+    reducerPath: 'pokemonApi',
+    reducer: (state = {}) => state,
+    middleware:
+      () => (next: (action: unknown) => unknown) => (action: unknown) =>
+        next(action),
   },
+  useGetPokemonByNameQuery: pokemonApiMock.useGetPokemonByNameQuery,
+  useGetPokemonByPageQuery: pokemonApiMock.useGetPokemonByPageQuery,
+}));
+
+vi.mock('../PokemonShortCardsList/PokemonShortCardsList', () => ({
+  default: ({ name }: { name: string }) => (
+    <li>
+      <strong>{name}</strong>
+      <p>electric</p>
+    </li>
+  ),
+}));
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+    data: undefined,
+    error: undefined,
+    isFetching: false,
+    isLoading: false,
+  });
+  pokemonApiMock.useGetPokemonByPageQuery.mockReturnValue({
+    data: undefined,
+    error: undefined,
+    isFetching: false,
+    isLoading: false,
+  });
 });
 
 describe('PokemonResults', () => {
   it('displays pokemon card from currentPokemon if provided', () => {
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: mockPokemon,
+      error: undefined,
+      isFetching: false,
+    });
+
     render(
       <PokemonResults
         term={mockPokemon.name}
@@ -32,13 +76,26 @@ describe('PokemonResults', () => {
   });
 
   it('displays all pokemon cards from allPokemons if provided', () => {
+    pokemonApiMock.useGetPokemonByPageQuery.mockReturnValue({
+      data: {
+        results: [{ name: mockPokemon.name }, { name: mockPokemon2.name }],
+      },
+      error: undefined,
+      isFetching: false,
+      isLoading: false,
+    });
+    pokemonApiMock.useGetPokemonByNameQuery.mockImplementation(
+      (name: string) => ({
+        data: name === mockPokemon.name ? mockPokemon : mockPokemon2,
+        error: undefined,
+        isLoading: false,
+        isFetching: false,
+      })
+    );
+
     render(
       <Provider store={testStore}>
-        <PokemonResults
-          term={mockPokemon.name}
-          currentPage={0}
-          onItemClick={() => {}}
-        />{' '}
+        <PokemonResults term="" currentPage={1} onItemClick={() => {}} />
       </Provider>
     );
     const pokemonName = screen.getByText(mockPokemon.name);
@@ -65,6 +122,12 @@ describe('PokemonResults', () => {
   });
 
   it('error message when API fails with 404', () => {
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: undefined,
+      error: { status: 404 },
+      isFetching: false,
+    });
+
     render(
       <PokemonResults
         term={mockPokemon.name}
@@ -72,10 +135,16 @@ describe('PokemonResults', () => {
         onItemClick={() => {}}
       />
     );
-    expect(screen.getByText(/404/)).toBeInTheDocument();
+    expect(screen.getByText(/error, check the name/i)).toBeInTheDocument();
   });
 
   it('error message when API fails with 500', () => {
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: undefined,
+      error: { status: 500 },
+      isFetching: false,
+    });
+
     render(
       <PokemonResults
         term={mockPokemon.name}
@@ -83,6 +152,6 @@ describe('PokemonResults', () => {
         onItemClick={() => {}}
       />
     );
-    expect(screen.getByText(/500/)).toBeInTheDocument();
+    expect(screen.getByText(/error, check the name/i)).toBeInTheDocument();
   });
 });

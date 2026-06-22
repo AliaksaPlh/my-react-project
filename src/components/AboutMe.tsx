@@ -1,14 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import Button from './Button/Button';
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '../i18n/navigation';
 import dogs from '../assets/dogs.svg';
 
-const EboutMePage: React.FC = () => {
-  const navigate = useNavigate();
+export default async function AboutMe() {
+  const t = await getTranslations('About');
 
-  const handleGoHome = () => {
-    navigate('/');
-  };
   return (
     <div
       style={{
@@ -19,16 +16,14 @@ const EboutMePage: React.FC = () => {
         alignItems: 'center',
       }}
     >
-      <h1>About Me</h1>
+      <h1>{t('title')}</h1>
       <h2 style={{ width: '25rem', textAlign: 'center' }}>
-        Hello, my name is Alexandra, I am junior frontend developer.
+        {t('intro')}
         <br />
-        Welcome to my GitHub by <a href="https://github.com/AliaksaPlh">
-          link
-        </a>{' '}
+        {t('github')}{' '}
+        <a href="https://github.com/AliaksaPlh">{t('githubLink')}</a>
         <br />
-        Feel free to contact me via discord{' '}
-        <b style={{ color: '#f6bd21' }}>aliaksaplh</b>
+        {t('discord')} <b style={{ color: '#f6bd21' }}>aliaksaplh</b>
       </h2>
       <h3
         style={{
@@ -38,24 +33,25 @@ const EboutMePage: React.FC = () => {
           justifyContent: 'center',
         }}
       >
-        I am a studenr of -
-        <a href="https://rs.school/courses/reactjs"> RSS React Course</a>
+        <a href="https://rs.school/courses/reactjs"> {t('courseLink')}</a>
       </h3>
-      <Button onClick={handleGoHome} className="go-home-button">
-        Go Home
-      </Button>
-      <img
+      <Link href="/" className="go-home-button">
+        {t('home')}
+      </Link>
+      <Image
         src={dogs}
         alt="fone"
+        width={800}
+        height={800}
         style={{
           position: 'absolute',
           top: '0',
           height: '100%',
+          width: 'auto',
           zIndex: '-1',
           opacity: '11%',
         }}
       />
     </div>
   );
-};
-export default EboutMePage;
+}

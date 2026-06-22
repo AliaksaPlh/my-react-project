@@ -5,9 +5,18 @@ import './Pagination.css';
 interface Props {
   currentPage: number;
   onPageChange: (newPage: number) => void;
+  label?: string;
+  previousLabel?: string;
+  nextLabel?: string;
 }
 
-const Pagination: React.FC<Props> = ({ currentPage, onPageChange }) => {
+const Pagination: React.FC<Props> = ({
+  currentPage,
+  onPageChange,
+  label = `Page ${currentPage}`,
+  previousLabel = 'Previous',
+  nextLabel = 'Next',
+}) => {
   return (
     <div className="pagination-container">
       <Button
@@ -15,16 +24,16 @@ const Pagination: React.FC<Props> = ({ currentPage, onPageChange }) => {
         disabled={currentPage === 1}
         className="pagination-button secondary"
       >
-        Previous
+        {previousLabel}
       </Button>
 
-      <span>Page {currentPage}</span>
+      <span>{label}</span>
 
       <Button
         onClick={() => onPageChange(currentPage + 1)}
         className="pagination-button secondary"
       >
-        Next
+        {nextLabel}
       </Button>
     </div>
   );

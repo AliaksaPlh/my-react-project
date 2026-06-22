@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import styles from './PokemonResults.module.css';
 import Loader from '../Loader/Loader';
@@ -46,9 +47,11 @@ const PokemonResults: React.FC<Props> = ({
     return (
       <div className={styles.wrapper}>
         <h2 className={styles.pokemonName}>{currentPokemon.name}</h2>
-        <img
+        <Image
           src={currentPokemon.sprites.other.dream_world.front_default}
           alt={currentPokemon.name}
+          width={300}
+          height={300}
           className={styles.image}
         />
         <div className={styles.pokemonInfo}>

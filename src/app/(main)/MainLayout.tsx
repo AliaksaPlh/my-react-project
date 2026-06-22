@@ -8,8 +8,10 @@ export default function MainLayout({
 }) {
   return (
     <StoreProvider>
-      <Header />
-      {children}
+      <main className="app-shell">
+        <Header />
+        {children}
+      </main>
     </StoreProvider>
   );
 }

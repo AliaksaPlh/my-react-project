@@ -1,0 +1,40 @@
+{
+  "Navigation": {
+    "about": "About Me",
+    "notExist": "Not Exist",
+    "language": "Русский"
+  },
+  "Search": {
+    "placeholder": "Enter FULL! Pokémon name...",
+    "button": "Search",
+    "allPokemons": "All Pokémons: name and type",
+    "page": "Page {page}",
+    "previous": "Previous",
+    "next": "Next",
+    "error": "Error, check the name."
+  },
+  "About": {
+    "title": "About Me",
+    "intro": "Hello, my name is Alexandra, I am junior frontend developer.",
+    "github": "Welcome to my GitHub by",
+    "githubLink": "link",
+    "discord": "Feel free to contact me via discord",
+    "courseLink": "RSS React Course",
+    "home": "Go Home"
+  },
+  "NotFound": {
+    "title": "404 - Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist.",
+    "home": "Go Home"
+  },
+  "Selected": {
+    "download": "Download",
+    "unselectAll": "Unselect all"
+  },
+  "PokemonDetails": {
+    "height": "Height",
+    "weight": "Weight",
+    "types": "Types",
+    "close": "Close"
+  }
+}

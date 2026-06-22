@@ -1,0 +1,40 @@
+{
+  "Navigation": {
+    "about": "Обо мне",
+    "notExist": "Не существует",
+    "language": "English"
+  },
+  "Search": {
+    "placeholder": "Введите полное имя покемона...",
+    "button": "Поиск",
+    "allPokemons": "Все покемоны: имя и тип",
+    "page": "Страница {page}",
+    "previous": "Назад",
+    "next": "Вперёд",
+    "error": "Ошибка, проверьте имя."
+  },
+  "About": {
+    "title": "Обо мне",
+    "intro": "Привет, меня зовут Александра, я junior frontend developer.",
+    "github": "Мой GitHub по",
+    "githubLink": "ссылке",
+    "discord": "Со мной можно связаться в discord",
+    "courseLink": "RSS React Course",
+    "home": "На главную"
+  },
+  "NotFound": {
+    "title": "404 - Страница не найдена",
+    "message": "Извините, такой страницы не существует.",
+    "home": "На главную"
+  },
+  "Selected": {
+    "download": "Скачать",
+    "unselectAll": "Отменить выбор"
+  },
+  "PokemonDetails": {
+    "height": "Рост",
+    "weight": "Вес",
+    "types": "Тип",
+    "close": "Закрыть"
+  }
+}

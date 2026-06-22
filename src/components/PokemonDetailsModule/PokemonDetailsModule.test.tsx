@@ -2,19 +2,44 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import PokemonDetailsModule from './PokemonDetailsModule';
-import * as api from '../../api/pokemon';
-import { mockPokemon, testStore } from '../../test-utils/mockData';
-import { Provider } from 'react-redux';
+import { mockPokemon } from '../../test-utils/mockData';
+
+const pokemonApiMock = vi.hoisted(() => ({
+  useGetPokemonByNameQuery: vi.fn(),
+}));
+
+vi.mock('../../api/Query/pokemonApi', () => ({
+  pokemonApi: {
+    reducerPath: 'pokemonApi',
+    reducer: (state = {}) => state,
+    middleware:
+      () => (next: (action: unknown) => unknown) => (action: unknown) =>
+        next(action),
+  },
+  useGetPokemonByNameQuery: pokemonApiMock.useGetPokemonByNameQuery,
+}));
+
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) =>
+    ({
+      height: 'Height',
+      weight: 'Weight',
+      types: 'Types',
+    })[key] ?? key,
+}));
 
 describe('PokemonDetails', () => {
   beforeEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   it('shows loader while fetching data', async () => {
-    vi.spyOn(api, 'fetchPokemonByName').mockImplementation(
-      () => new Promise(() => {})
-    );
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: undefined,
+      isFetching: true,
+      isError: false,
+    });
+
     render(<PokemonDetailsModule name="pikachu" onClose={() => {}} />);
     expect(
       screen.getByText(/loading/i) || screen.getByRole('progressbar')
@@ -22,7 +47,12 @@ describe('PokemonDetails', () => {
   });
 
   it('renders pokemon details when fetch succeeds', async () => {
-    vi.spyOn(api, 'fetchPokemonByName').mockResolvedValue(mockPokemon);
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: mockPokemon,
+      isFetching: false,
+      isError: false,
+    });
+
     render(<PokemonDetailsModule name="pikachu" onClose={() => {}} />);
     expect(
       await screen.findByRole('heading', { name: /pikachu/i })
@@ -32,14 +62,14 @@ describe('PokemonDetails', () => {
   });
 
   it('calls onClose when close button is clicked', async () => {
-    vi.spyOn(api, 'fetchPokemonByName').mockResolvedValue(mockPokemon);
+    pokemonApiMock.useGetPokemonByNameQuery.mockReturnValue({
+      data: mockPokemon,
+      isFetching: false,
+      isError: false,
+    });
     const onClose = vi.fn();
 
-    render(
-      <Provider store={testStore}>
-        <PokemonDetailsModule name="pikachu" onClose={onClose} />{' '}
-      </Provider>
-    );
+    render(<PokemonDetailsModule name="pikachu" onClose={onClose} />);
     await screen.findByRole('heading', { name: /pikachu/i });
     fireEvent.click(screen.getByRole('button', { name: /close/i }));
     expect(onClose).toHaveBeenCalledTimes(1);

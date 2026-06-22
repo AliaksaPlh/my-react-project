@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '../../i18n/navigation';
 import { SearchBar } from '../SearchBar/SearchBar';
 import PokemonResults from '../PokemonSearchBarResults/PokemonResults';
 import ErrorBoundaryButton from '../ErrorBoundary/ErrorBoundaryButton';
@@ -13,11 +14,18 @@ import PokemonDetailsModule from '../PokemonDetailsModule/PokemonDetailsModule';
 const PokemonContainer: React.FC = () => {
   const [term, setTerm] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams(); // for URL
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const { setLocalStorage } = useLocalStorage('term');
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const selectedName = searchParams.get('selected');
+
+  const updateSearchParams = (params: URLSearchParams) => {
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
@@ -29,26 +37,26 @@ const PokemonContainer: React.FC = () => {
     setSearchTerm(trimmed);
 
     if (trimmed === '') {
-      setSearchParams({});
+      updateSearchParams(new URLSearchParams());
     } else {
-      setSearchParams({ search: trimmed }); // refresh
+      updateSearchParams(new URLSearchParams({ search: trimmed }));
     }
   };
 
   const handlePageChange = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', newPage.toString());
-    setSearchParams(newParams);
+    updateSearchParams(newParams);
   };
   const handleItemClick = (name: string) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('selected', name);
-    setSearchParams(newParams);
+    updateSearchParams(newParams);
   };
   const handleCloseDetails = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.delete('selected');
-    setSearchParams(newParams);
+    updateSearchParams(newParams);
   };
 
   return (

@@ -1,4 +1,9 @@
+'use client';
+
 import React from 'react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '../../i18n/navigation';
 import type { Pokemon } from '../../types_interfaces/interfaces';
 import { useAppSelector } from '../../Hooks/useAppSelector';
 import { useAppDispatch } from '../../Hooks/useAppDispatch';
@@ -8,11 +13,14 @@ import { selectPokemons } from '../../store/slice';
 
 type Props = {
   pokemon: Pokemon;
-  onItemClick: (name: string) => void;
+  onItemClick?: (name: string) => void;
 };
 
 const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const selectedPokemons = useAppSelector(selectPokemons);
 
@@ -25,10 +33,22 @@ const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
       dispatch(addSelectedPokemon(pokemon));
     }
   };
+
+  const handleItemClick = () => {
+    if (onItemClick) {
+      onItemClick(pokemon.name);
+      return;
+    }
+
+    const params = new URLSearchParams(searchParams);
+    params.set('selected', pokemon.name);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <li
       className={`${styles.card} ${isSelected ? styles.selected : ''}`}
-      onClick={() => onItemClick?.(pokemon.name)}
+      onClick={handleItemClick}
       style={{ cursor: 'pointer' }}
     >
       <input
@@ -37,9 +57,11 @@ const PokemonShortCard: React.FC<Props> = ({ pokemon, onItemClick }) => {
         onChange={handleCheckboxChange}
         onClick={(e) => e.stopPropagation()}
       />
-      <img
+      <Image
         src={pokemon.sprites.other.dream_world.front_default}
         alt={pokemon.name}
+        width={80}
+        height={80}
       />
       <div className="pokemonDetailsBlocks">
         <strong>{pokemon.name}</strong>
